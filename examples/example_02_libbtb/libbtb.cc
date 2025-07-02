@@ -1,4 +1,5 @@
 #include <BTBKit/JSONManifestBuilder.h>
+#include <cstdlib>
 
 #ifndef _WIN32
 static auto kPath = "./posix.json";
@@ -8,5 +9,7 @@ static auto kPath = ".\win64.json";
 
 int main(int argc, char** argv) {
   auto builder = new BTB::JSONManifestBuilder();
+  if (!builder) return EXIT_FAILURE;
+  
   return builder->buildTarget(strlen(kPath), kPath);
 }
