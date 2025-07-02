@@ -14,10 +14,15 @@ using namespace BTB;
 /// @brief Builds a JSON target from a JSON file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid JSON file).
-/// @retval true succeeded building.
+/// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
 bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const bool dry_run) {
   String path;
+
+  if (!arg_val) {
+    BTB::Logger::info() << "btb: error: file path is empty" << std::endl;
+    return false;
+  }
 
   if (arg_sz < 0) {
     BTB::Logger::info() << "btb: error: file path is empty" << std::endl;
