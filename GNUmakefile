@@ -1,9 +1,9 @@
 SUDO=sudo
 GCC=g++
 GCC_MINGW=x86_64-w64-mingw32-g++
-CXXFLAGS=-I./ -I./vendor
+CXXFLAGS=-I./dev -I./vendor
 CXXSTD= -std=c++20
-SRC=$(wildcard cli/*.cc) $(wildcard src/*.cc)
+SRC=$(wildcard dev/cli/*.cc) $(wildcard dev/src/*.cc)
 OUT=nebuild
 CP=cp
 
