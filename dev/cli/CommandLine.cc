@@ -1,11 +1,11 @@
 
 // ============================================================= //
-// btb
+// nebuild
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
-#include <BTBKit/Includes.h>
-#include <BTBKit/JSONManifestBuilder.h>
+#include <BuildKit/Includes.h>
+#include <BuildKit/JSONManifestBuilder.h>
 
 static bool kFailed = false;
 static bool kDryRun = false;
@@ -21,14 +21,14 @@ int main(int argc, char** argv) {
       BTB::Logger::info() << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
 
       BTB::Logger::info()
-          << "Bugs, issues? Check out: https://github.com/nekernel-org/btb/issues\n";
+          << "Bugs, issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
 
       return EXIT_SUCCESS;
     } else if (index_path == "--dry-run") {
       kDryRun = true;
       continue;
     } else if (index_path == "-h" || index_path == "--help") {
-      BTB::Logger::info() << "Usage: btb <file>\n";
+      BTB::Logger::info() << "Usage: nebuild <file>\n";
 
       return EXIT_SUCCESS;
     }

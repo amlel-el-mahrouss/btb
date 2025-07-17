@@ -1,12 +1,12 @@
 // ============================================================= //
-// btb
+// nebuild
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
 #pragma once
 
-#include <BTBKit/Includes.h>
-#include <BTBKit/Macros.h>
+#include <BuildKit/Includes.h>
+#include <BuildKit/Macros.h>
 
 #define BTB_MANIFEST_BUILDER : public BTB::IManifestBuilder
 

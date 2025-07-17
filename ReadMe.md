@@ -10,10 +10,10 @@
 
 ## Guide (GNU Make):
 
-- Run make `build-btb-core` and `build-btb`.
+- Run make `build-nebuild-core` and `build-nebuild`.
 
 ## Guide (NeBuild):
 
-- Run `btb` and pass the path to the manifest file.
+- Run `nebuild` and pass the path to the manifest file.
 
 ###### Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel.org Authors, all rights reserved.

@@ -1,4 +1,4 @@
-#include <BTBKit/JSONManifestBuilder.h>
+#include <BuildKit/JSONManifestBuilder.h>
 #include <cstdlib>
 
 #ifndef _WIN32

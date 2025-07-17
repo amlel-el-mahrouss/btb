@@ -1,12 +1,13 @@
 // ============================================================= //
-// btb
+// nebuild
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
-#include <BTBKit/JSONManifestBuilder.h>
+#include <BuildKit/JSONManifestBuilder.h>
 
 using String = std::string;
 using JSON   = nlohmann::json;
+
 namespace FS = std::filesystem;
 
 using namespace BTB;
@@ -19,19 +20,14 @@ using namespace BTB;
 bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const bool dry_run) {
   String path;
 
-  if (!arg_val) {
-    BTB::Logger::info() << "btb: error: file path is empty" << std::endl;
-    return false;
-  }
-
-  if (arg_sz < 0) {
-    BTB::Logger::info() << "btb: error: file path is empty" << std::endl;
+  if (!arg_val || arg_sz < 0) {
+    BTB::Logger::info() << "nebuild: error: file path is empty" << std::endl;
     return false;
   } else {
-    path = arg_val;
+    path += arg_val;
 
     if (!FS::exists(path)) {
-      BTB::Logger::info() << "btb: error: file '" << path << "' does not exist" << std::endl;
+      BTB::Logger::info() << "nebuild: error: file '" << path << "' does not exist" << std::endl;
       return false;
     }
   }
@@ -40,7 +36,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
     std::ifstream json(path);
 
     if (!json.good()) {
-      BTB::Logger::info() << "btb: error: file '" << path << "' is not a valid JSON" << std::endl;
+      BTB::Logger::info() << "nebuild: error: file '" << path << "' is not a valid JSON" << std::endl;
       return false;
     }
 
@@ -112,12 +108,12 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
 
           ss << file.rdbuf();
 
-          if (ss.str()[0] == 'J' && ss.str()[1] == 'o' && ss.str()[2] == 'y' && ss.str()[3] == '!')
+          if (ss.str()[0] == 'O' && ss.str()[1] == 'p' && ss.str()[2] == 'e' && ss.str()[3] == 'n')
             BTB::Logger::info()
                 << "error: can't open PEF dynamic library, it mayn't contain an entrypoint"
                 << std::endl;
-          else if (ss.str()[0] == '!' && ss.str()[1] == 'y' && ss.str()[2] == 'o' &&
-                   ss.str()[3] == 'J')
+          else if (ss.str()[0] == 'n' && ss.str()[1] == 'e' && ss.str()[2] == 'p' &&
+                   ss.str()[3] == 'O')
             BTB::Logger::info()
                 << "error: can't open FEP dynamic library, it mayn't contain an entrypoint"
                 << std::endl;

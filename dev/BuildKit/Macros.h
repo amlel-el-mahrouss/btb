@@ -1,5 +1,5 @@
 // ============================================================= //
-// btb
+// nebuild
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
@@ -28,7 +28,7 @@ namespace BTB::Logger {
 /// @brief replacement for std::cout for BTB logging.
 inline std::ostream& info() noexcept {
   auto& out = std::cout;
-  out << rang::fg::red << "btb: " << rang::style::reset;
+  out << rang::fg::red << "nebuild: " << rang::style::reset;
   return out;
 }
 }  // namespace BTB::Logger
