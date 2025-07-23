@@ -5,6 +5,6 @@
   "sources_path": ["dev/src/*.cc", "dev/cli/*.cc"],
   "output_name": "nebuild.exe",
   "compiler_flags": ["-fPIC"],
-  "cpp_macros": ["BTB_WINDOWS"],
+  "cpp_macros": ["NEBUILD_WINDOWS"],
   "run_after_build": false
 }

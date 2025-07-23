@@ -8,9 +8,12 @@
 #include <BuildKit/IManifestBuilder.h>
 #include <json.h>
 
+/// @file JSONManifestBuilder.h
+/// @brief JSON manifest builder header file.
+
 namespace BTB {
 /// @brief JSON builder
-class JSONManifestBuilder final BTB_MANIFEST_BUILDER {
+class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
  public:
   JSONManifestBuilder()          = default;
   ~JSONManifestBuilder() override = default;

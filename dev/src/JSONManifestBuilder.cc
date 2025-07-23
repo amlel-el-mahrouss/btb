@@ -130,7 +130,7 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
           return true;
         }
 
-#if defined(BTB_WINDOWS)
+#if defined(NEBUILD_WINDOWS)
         std::system((".\\" + target).c_str());
 #else
         std::system(("./" + target).c_str());

@@ -5,6 +5,6 @@
   "sources_path": ["dev/src/*.cc", "dev/cli/*.cc"],
   "output_name": "nebuild",
   "compiler_flags": ["-fPIC"],
-  "cpp_macros": ["BTB_POSIX"],
+  "cpp_macros": ["NEBUILD_POSIX"],
   "run_after_build": false
 }

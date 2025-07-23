@@ -3,8 +3,8 @@
   "compiler_std": "c++20",
   "headers_path": ["dev", "vendor"],
   "sources_path": ["dev/src/*.cc"],
-  "output_name": "libBTB.dylib",
+  "output_name": "libNeBuild.dylib",
   "compiler_flags": ["-fPIC", "-shared"],
-  "cpp_macros": ["BTB_DYLIB", "BTB_OSX"],
+  "cpp_macros": ["NEBUILD_DYLIB", "NEBUILD_OSX"],
   "run_after_build": false
 }

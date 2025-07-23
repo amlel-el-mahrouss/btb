@@ -14,15 +14,15 @@ extern "C" {
 #define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
 
-#define LIBBTB_VERSION "v0.0.1-libBTB"
+#define LIBNEBUILD_VERSION "v0.0.1-libNeBuild"
 
-#define LIBBTB_VERSION_BCD 0x0001
+#define LIBNEBUILD_VERSION_BCD 0x0001
 
-#define LIBBTB_VERSION_MAJOR 1
-#define LIBBTB_VERSION_MINOR 1
-#define LIBBTB_VERSION_PATCH 0
+#define LIBNEBUILD_VERSION_MAJOR 1
+#define LIBNEBUILD_VERSION_MINOR 1
+#define LIBNEBUILD_VERSION_PATCH 0
 
-#define LIBBTB_UNUSED(X) ((void) X)
+#define LIBNEBUILD_UNUSED(X) ((void) X)
 
 namespace BTB::Logger {
 /// @brief replacement for std::cout for BTB logging.

@@ -8,7 +8,7 @@
 #include <BuildKit/Includes.h>
 #include <BuildKit/Macros.h>
 
-#define BTB_MANIFEST_BUILDER : public BTB::IManifestBuilder
+#define NEBUILD_MANIFEST_BUILDER : public BTB::IManifestBuilder
 
 namespace BTB {
 /// @brief Builder interface class.
