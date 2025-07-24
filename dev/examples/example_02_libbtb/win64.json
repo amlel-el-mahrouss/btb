@@ -10,7 +10,7 @@
   ],
   "output_name": "libbtb.exe",
   "compiler_flags": [
-    "-lBTB"
+    "-lNeBuild"
   ],
   "cpp_macros": [
     "FOO_MACRO"

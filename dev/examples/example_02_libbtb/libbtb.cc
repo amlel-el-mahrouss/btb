@@ -8,7 +8,7 @@ static auto kPath = ".\win64.json";
 #endif
 
 int main(int argc, char** argv) {
-  auto builder = new BTB::JSONManifestBuilder();
+  auto builder = new NeBuild::JSONManifestBuilder();
   if (!builder) return EXIT_FAILURE;
   
   return builder->buildTarget(strlen(kPath), kPath);

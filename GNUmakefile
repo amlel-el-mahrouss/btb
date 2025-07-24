@@ -19,5 +19,5 @@ build-nebuild-windows:
 .PHONY: help
 help:
 	@echo "=> help: Show this help message."
-	@echo "=> build-nebuild-windows: Build BTB for Windows."
-	@echo "=> build-nebuild: Build BTB for POSIX."
+	@echo "=> build-nebuild-windows: Build NeBuild for Windows."
+	@echo "=> build-nebuild: Build NeBuild for POSIX."

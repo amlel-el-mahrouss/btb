@@ -5,12 +5,11 @@
 
 #pragma once
 
-#include <BuildKit/Includes.h>
-#include <BuildKit/Macros.h>
+#include <BuildKit/Defines.h>
 
-#define NEBUILD_MANIFEST_BUILDER : public BTB::IManifestBuilder
+#define NEBUILD_MANIFEST_BUILDER : public NeBuild::IManifestBuilder
 
-namespace BTB {
+namespace NeBuild {
 /// @brief Builder interface class.
 /// @note This class is meant to be used as an interface.
 class IManifestBuilder {
@@ -29,4 +28,4 @@ class IManifestBuilder {
   virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) = 0;
   virtual const char* buildSystem() = 0;
 };
-}  // namespace BTB
+}  // namespace NeBuild

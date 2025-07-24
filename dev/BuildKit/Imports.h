@@ -14,4 +14,10 @@
 #include <string>
 #include <thread>
 
+extern "C" {
+#include <assert.h>
+}
+
+#include <rang.h>
+
 #endif  // NEBUILD_INCLUDES_H

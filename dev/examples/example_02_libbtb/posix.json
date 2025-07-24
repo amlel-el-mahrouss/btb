@@ -11,7 +11,7 @@
   "output_name": "libbtb.elf",
   "compiler_flags": [
     "-L/usr/local/lib",
-    "-lBTB"
+    "-lNeBuild"
   ],
   "cpp_macros": [
     "FOO_MACRO"

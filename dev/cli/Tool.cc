@@ -4,7 +4,6 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
-#include <BuildKit/Includes.h>
 #include <BuildKit/JSONManifestBuilder.h>
 
 static bool kFailed = false;
@@ -17,10 +16,10 @@ int main(int argc, char** argv) {
     std::string index_path = argv[index];
 
     if (index_path == "-v" || index_path == "--version") {
-      BTB::Logger::info() << "Brought to you by Amlal El Mahrouss for the NeKernel project.\n";
-      BTB::Logger::info() << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
+      NeBuild::Logger::info() << "Brought to you by Amlal El Mahrouss for NeKernel.org.\n";
+      NeBuild::Logger::info() << "© 2024-2025 Amlal El Mahrouss, all rights reserved.\n";
 
-      BTB::Logger::info()
+      NeBuild::Logger::info()
           << "Bugs, issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
 
       return EXIT_SUCCESS;
@@ -28,38 +27,38 @@ int main(int argc, char** argv) {
       kDryRun = true;
       continue;
     } else if (index_path == "-h" || index_path == "--help") {
-      BTB::Logger::info() << "Usage: nebuild <file>\n";
+      NeBuild::Logger::info() << "Usage: nebuild <file>\n";
 
       return EXIT_SUCCESS;
     }
 
     if (index_path.starts_with("-")) {
-      BTB::Logger::info() << "error: unknown option '" << index_path << "'\n";
+      NeBuild::Logger::info() << "error: unknown option '" << index_path << "'\n";
 
       return EXIT_FAILURE;
     }
 
     std::thread job_build_thread(
         [](std::string index_path) -> void {
-          BTB::IManifestBuilder* builder = nullptr;
+          NeBuild::IManifestBuilder* builder = nullptr;
 
           const auto kJsonExtension = ".json";
 
           if (index_path.ends_with(kJsonExtension)) {
-            builder = new BTB::JSONManifestBuilder();
+            builder = new NeBuild::JSONManifestBuilder();
 
             if (!builder) {
               kFailed = true;
               return;
             }
           } else {
-            BTB::Logger::info() << "error: file '" << index_path << "' is not a JSON file!"
+            NeBuild::Logger::info() << "error: file '" << index_path << "' is not a JSON file!"
                                 << std::endl;
             kFailed = true;
             return;
           }
 
-          BTB::Logger::info() << "building manifest: " << index_path << std::endl;
+          NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
 
           if (builder && !builder->buildTarget(index_path.size(), index_path.c_str(), kDryRun)) {
             kFailed = true;

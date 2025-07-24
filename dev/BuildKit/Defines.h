@@ -5,11 +5,7 @@
 
 #pragma once
 
-extern "C" {
-#include <assert.h>
-}
-
-#include <rang.h>
+#include <BuildKit/Imports.h>
 
 #define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
@@ -24,11 +20,11 @@ extern "C" {
 
 #define LIBNEBUILD_UNUSED(X) ((void) X)
 
-namespace BTB::Logger {
-/// @brief replacement for std::cout for BTB logging.
+namespace NeBuild::Logger {
+/// @brief replacement for std::cout for NeBuild logging.
 inline std::ostream& info() noexcept {
   auto& out = std::cout;
   out << rang::fg::red << "nebuild: " << rang::style::reset;
   return out;
 }
-}  // namespace BTB::Logger
+}  // namespace NeBuild::Logger
