@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
 
           NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
 
-          if (builder && !builder->buildTarget(index_path.size(), index_path.c_str(), kDryRun)) {
+          if (builder && !builder->BuildTarget(index_path.size(), index_path.c_str(), kDryRun)) {
             kFailed = true;
           }
 

@@ -27,7 +27,7 @@ class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   /// @param arg_val filename path.
   /// @retval true build succeeded.
   /// @retval false failed to build.
-  bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
-  const char* buildSystem() override;
+  bool BuildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
+  const char* BuildSystem() override;
 };
 }  // namespace NeBuild

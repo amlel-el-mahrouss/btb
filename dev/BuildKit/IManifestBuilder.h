@@ -25,7 +25,7 @@ class IManifestBuilder {
   /// @param arg_val filename path.
   /// @retval true succeeded.
   /// @retval false failed.
-  virtual bool buildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) = 0;
-  virtual const char* buildSystem() = 0;
+  virtual bool BuildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) = 0;
+  virtual const char* BuildSystem() = 0;
 };
 }  // namespace NeBuild

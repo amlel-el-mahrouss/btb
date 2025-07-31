@@ -11,5 +11,5 @@ int main(int argc, char** argv) {
   auto builder = new NeBuild::JSONManifestBuilder();
   if (!builder) return EXIT_FAILURE;
   
-  return builder->buildTarget(strlen(kPath), kPath);
+  return builder->BuildTarget(strlen(kPath), kPath);
 }

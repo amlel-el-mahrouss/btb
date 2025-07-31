@@ -17,7 +17,7 @@ using namespace NeBuild;
 /// @param arg_val filename path (must be a valid JSON file).
 /// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
-bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const bool dry_run) {
+bool JSONManifestBuilder::BuildTarget(int arg_sz, const char* arg_val, const bool dry_run) {
   String path;
 
   if (!arg_val || arg_sz < 0) {
@@ -148,6 +148,6 @@ bool JSONManifestBuilder::buildTarget(int arg_sz, const char* arg_val, const boo
   return true;
 }
 
-const char* JSONManifestBuilder::buildSystem() {
-  return "json";
+const char* JSONManifestBuilder::BuildSystem() {
+  return "NeBuild (JSON)";
 }
