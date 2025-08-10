@@ -5,7 +5,6 @@
 
 #include <BuildKit/JSONManifestBuilder.h>
 
-using String = std::string;
 using JSON   = nlohmann::json;
 
 namespace FS = std::filesystem;
@@ -17,14 +16,14 @@ using namespace NeBuild;
 /// @param arg_val filename path (must be a valid JSON file).
 /// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
-bool JSONManifestBuilder::BuildTarget(int arg_sz, const char* arg_val, const bool dry_run) {
-  String path;
+bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dry_run) {
+  std::string path;
 
-  if (!arg_val || arg_sz < 0) {
+  if (argv_val.empty()) {
     NeBuild::Logger::info() << "nebuild: error: file path is empty" << std::endl;
     return false;
   } else {
-    path += arg_val;
+    path = argv_val;
 
     if (!FS::exists(path)) {
       NeBuild::Logger::info() << "nebuild: error: file '" << path << "' does not exist" << std::endl;
@@ -42,39 +41,39 @@ bool JSONManifestBuilder::BuildTarget(int arg_sz, const char* arg_val, const boo
 
     JSON json_obj = JSON::parse(json);
 
-    String compiler = json_obj["compiler_path"].get<String>();
+    std::string compiler = json_obj["compiler_path"].get<std::string>();
 
     JSON header_search_path = json_obj["headers_path"];
     JSON sources_files      = json_obj["sources_path"];
 
-    String command = compiler + " ";
+    std::string command = compiler + " ";
 
     for (auto& sources : sources_files) {
-      command += sources.get<String>() + " ";
+      command += sources.get<std::string>() + " ";
     }
 
     for (auto& headers : header_search_path) {
-      command += "-I" + headers.get<String>() + " ";
+      command += "-I" + headers.get<std::string>() + " ";
     }
 
     JSON macros_list = json_obj["cpp_macros"];
 
     for (auto& macro : macros_list) {
-      command += "-D" + macro.get<String>() + " ";
+      command += "-D" + macro.get<std::string>() + " ";
     }
 
     JSON compiler_flags = json_obj["compiler_flags"];
 
     for (auto& flag : compiler_flags) {
-      command += flag.get<String>() + " ";
+      command += flag.get<std::string>() + " ";
     }
 
     if (json_obj["compiler_std"].is_string())
-      command += "-std=" + json_obj["compiler_std"].get<String>() + " ";
+      command += "-std=" + json_obj["compiler_std"].get<std::string>() + " ";
 
-    command += "-o " + json_obj["output_name"].get<String>();
+    command += "-o " + json_obj["output_name"].get<std::string>();
 
-    auto target = json_obj["output_name"].get<String>();
+    auto target = json_obj["output_name"].get<std::string>();
 
     NeBuild::Logger::info() << "output path: " << target << "\n";
     NeBuild::Logger::info() << "command: " << command << "\n";

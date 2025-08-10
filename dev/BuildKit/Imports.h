@@ -13,11 +13,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
-
-extern "C" {
-#include <assert.h>
-}
-
-#include <rang.h>
+#include <cassert>
+#include <rang/rang.h>
 
 #endif  // NEBUILD_INCLUDES_H
