@@ -5,7 +5,7 @@
 
 #include <BuildKit/JSONManifestBuilder.h>
 
-using JSON   = nlohmann::json;
+using JSON = nlohmann::json;
 
 namespace FS = std::filesystem;
 
@@ -26,7 +26,8 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     path = argv_val;
 
     if (!FS::exists(path)) {
-      NeBuild::Logger::info() << "nebuild: error: file '" << path << "' does not exist" << std::endl;
+      NeBuild::Logger::info() << "nebuild: error: file '" << path << "' does not exist"
+                              << std::endl;
       return false;
     }
   }
@@ -35,7 +36,8 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     std::ifstream json(path);
 
     if (!json.good()) {
-      NeBuild::Logger::info() << "nebuild: error: file '" << path << "' is not a valid JSON" << std::endl;
+      NeBuild::Logger::info() << "nebuild: error: file '" << path << "' is not a valid JSON"
+                              << std::endl;
       return false;
     }
 
@@ -90,15 +92,16 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     auto ret_exec = std::system(command.c_str());
 
     if (ret_exec > 0) {
-      NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << "" << std::endl;
+      NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
+                              << std::endl;
       return false;
     }
 
     try {
       if (json_obj["run_after_build"].get<bool>()) {
         if (target.ends_with(".so")) {
-          NeBuild::Logger::info() << "error: can't open dynamic library, it mayn't have an entrypoint"
-                              << std::endl;
+          NeBuild::Logger::info()
+              << "error: can't open dynamic library, it mayn't have an entrypoint" << std::endl;
 
           return true;
         } else if (target.ends_with(".dylib") || target.ends_with(".dll")) {

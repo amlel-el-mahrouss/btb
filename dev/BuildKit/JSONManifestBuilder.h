@@ -15,7 +15,7 @@ namespace NeBuild {
 /// @brief JSON builder
 class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
  public:
-  JSONManifestBuilder()          = default;
+  JSONManifestBuilder()           = default;
   ~JSONManifestBuilder() override = default;
 
   JSONManifestBuilder& operator=(const JSONManifestBuilder&) = default;
@@ -27,7 +27,7 @@ class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   /// @param arg_val filename path.
   /// @retval true build succeeded.
   /// @retval false failed to build.
-  bool BuildTarget(const std::string& arg_val, const bool dry_run = false) override;
+  bool        BuildTarget(const std::string& arg_val, const bool dry_run = false) override;
   const char* BuildSystem() override;
 };
 }  // namespace NeBuild

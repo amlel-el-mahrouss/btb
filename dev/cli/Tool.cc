@@ -52,8 +52,8 @@ int main(int argc, char** argv) {
               return;
             }
           } else {
-            NeBuild::Logger::info() << "error: file '" << index_path << "' is not a JSON file!"
-                                << std::endl;
+            NeBuild::Logger::info()
+                << "error: file '" << index_path << "' is not a JSON file!" << std::endl;
             kFailed = true;
             return;
           }

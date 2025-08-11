@@ -14,7 +14,7 @@ namespace NeBuild {
 /// @note This class is meant to be used as an interface.
 class IManifestBuilder {
  public:
-  IManifestBuilder() = default;
+  IManifestBuilder()          = default;
   virtual ~IManifestBuilder() = default;
 
   IManifestBuilder& operator=(const IManifestBuilder&) = default;
@@ -25,7 +25,7 @@ class IManifestBuilder {
   /// @param arg_val filename path.
   /// @retval true succeeded.
   /// @retval false failed.
-  virtual bool BuildTarget(const std::string& arg, const bool dry_run = false) = 0;
-  virtual const char* BuildSystem() = 0;
+  virtual bool        BuildTarget(const std::string& arg, const bool dry_run = false) = 0;
+  virtual const char* BuildSystem()                                                   = 0;
 };
 }  // namespace NeBuild

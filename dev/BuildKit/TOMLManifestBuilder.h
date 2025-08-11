@@ -15,7 +15,7 @@ namespace NeBuild {
 /// @brief TOML builder
 class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
  public:
-  TOMLManifestBuilder()          = default;
+  TOMLManifestBuilder()           = default;
   ~TOMLManifestBuilder() override = default;
 
   TOMLManifestBuilder& operator=(const TOMLManifestBuilder&) = default;
@@ -27,7 +27,7 @@ class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   /// @param arg_val filename path.
   /// @retval true build succeeded.
   /// @retval false failed to build.
-  bool BuildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
+  bool        BuildTarget(int arg_sz, const char* arg_val, const bool dry_run = false) override;
   const char* BuildSystem() override;
 };
 }  // namespace NeBuild
