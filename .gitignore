@@ -3,7 +3,7 @@ syntax: glob
 html/
 latex/
 
-btb
+nebuild
 
 .cmake/
 .qtc_clangd/

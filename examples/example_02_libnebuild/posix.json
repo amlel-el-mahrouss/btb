@@ -1,0 +1,20 @@
+{
+  "compiler_path": "g++",
+  "compiler_std": "c++20",
+  "headers_path": [
+    "../../dev",
+    "../../vendor"
+  ],
+  "sources_path": [
+    "libnebuild.cc"
+  ],
+  "output_name": "libnebuild.elf",
+  "compiler_flags": [
+    "-L/usr/local/lib",
+    "-lNeBuild"
+  ],
+  "cpp_macros": [
+    "FOO_MACRO"
+  ],
+  "run_after_build": true
+}
