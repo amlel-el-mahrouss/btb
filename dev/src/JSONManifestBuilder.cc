@@ -4,7 +4,10 @@
 // ============================================================= //
 
 #include <BuildKit/JSONManifestBuilder.h>
+
+#if defined(NEBUILD_POSIX)
 #include <dlfcn.h>
+#endif
 
 using JSON = nlohmann::json;
 
