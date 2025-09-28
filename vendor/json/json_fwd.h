@@ -102,8 +102,8 @@
 #endif
 
 #ifndef NLOHMANN_JSON_NAMESPACE_END
-#define NLOHMANN_JSON_NAMESPACE_END                                  \
-  } /* namespace (inline namespace) NOLINT(readability/namespace) */ \
+#define NLOHMANN_JSON_NAMESPACE_END                                   \
+  }  /* namespace (inline namespace) NOLINT(readability/namespace) */ \
   }  // namespace nlohmann
 #endif
 

@@ -5,6 +5,10 @@
 
 #include <BuildKit/JSONManifestBuilder.h>
 
+#if defined(NEBUILD_POSIX)
+#include <dlfcn.h>
+#endif
+
 using JSON = nlohmann::json;
 
 namespace FS = std::filesystem;
@@ -99,12 +103,24 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
 
     try {
       if (json_obj["run_after_build"].get<bool>()) {
-        if (target.ends_with(".so")) {
-          NeBuild::Logger::info()
-              << "error: can't open dynamic library, it mayn't have an entrypoint" << std::endl;
+        if (target.ends_with(".so") || target.ends_with(".dylib")) {
+#if defined(NEBUILD_POSIX)
+          auto dll = dlopen(target.c_str(), RTLD_LAZY);
 
-          return true;
-        } else if (target.ends_with(".dylib") || target.ends_with(".dll")) {
+          if (dll) {
+            int (*entrypoint)(void) = nullptr;
+            entrypoint = (decltype(entrypoint))dlsym(dll, "shared_runner");
+
+            if (entrypoint) entrypoint();
+
+            dlclose(dll);
+
+            return true;
+          }
+#endif
+
+          return false;
+        } else {
           std::ifstream     file = std::ifstream(target);
           std::stringstream ss;
 
@@ -119,17 +135,8 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
             NeBuild::Logger::info()
                 << "error: can't open FEP dynamic library, it mayn't contain an entrypoint"
                 << std::endl;
-          else if (ss.str()[0] == 'M' && ss.str()[1] == 'Z')
-            NeBuild::Logger::info()
-                << "error: can't open MZ dynamic library, it mayn't contain an entrypoint"
-                << std::endl;
-          else if (ss.str()[0] == 0x7F && ss.str()[1] == 'E') {
-            NeBuild::Logger::info()
-                << "error: can't open ELF dynamic library, it mayn't contain an entrypoint"
-                << std::endl;
-          }
 
-          return true;
+          return false;
         }
 
 #if defined(NEBUILD_WINDOWS)
