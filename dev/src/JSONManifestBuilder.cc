@@ -49,8 +49,8 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     std::string compiler = json_obj["compiler_path"].get<std::string>();
 
     if (compiler != "g++" || !compiler.starts_with("clang")) {
-      NeBuild::Logger::info() << "nebuild: error: compiler '" << compiler << "' is not a valid C/C++ compiler!"
-                              << std::endl;
+      NeBuild::Logger::info() << "nebuild: error: compiler '" << compiler
+                              << "' is not a valid C/C++ compiler!" << std::endl;
       return false;
     }
 
@@ -62,8 +62,8 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
       command += "-I" + headers.get<std::string>() + " ";
     }
 
-    JSON headers_path = json_obj["headers_path"];
-    JSON sources_files      = json_obj["sources_path"];
+    JSON headers_path  = json_obj["headers_path"];
+    JSON sources_files = json_obj["sources_path"];
 
     for (auto& sources : sources_files) {
       command += sources.get<std::string>() + " ";
@@ -127,8 +127,6 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
 #endif
 
           return false;
-        } else {
-          return false;
         }
 
 #if defined(NEBUILD_WINDOWS)
@@ -137,12 +135,12 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
         std::system(("./" + target).c_str());
 #endif
       }
-    } catch (...) {
-      return true;
+    } catch (std::runtime_error& err) {
+      NeBuild::Logger::info() << "error: " << err.what() << std::endl;
+      return false;
     }
   } catch (std::runtime_error& err) {
     NeBuild::Logger::info() << "error: " << err.what() << std::endl;
-
     return false;
   }
 
