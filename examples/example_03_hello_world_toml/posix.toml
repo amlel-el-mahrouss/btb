@@ -1,0 +1,8 @@
+compiler_path = "g++"
+compiler_std = "c++20"
+headers_path = [ "lib" ]
+sources_path = [ "hello_world.cc" ]
+output_name = "hello_world.elf"
+compiler_flags = [ "-fPIC" ]
+cpp_macros = [ "FOO_MACRO" ]
+run_after_build = true

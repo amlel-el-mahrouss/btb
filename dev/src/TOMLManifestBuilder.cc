@@ -3,19 +3,18 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
 // ============================================================= //
 
-#include <BuildKit/JSONManifestBuilder.h>
+#include <BuildKit/TOMLManifestBuilder.h>
 
-using JSON   = nlohmann::json;
 namespace FS = std::filesystem;
 
 using namespace NeBuild;
 
-/// @brief Builds a JSON target from a JSON file.
+/// @brief Builds a TOML target from a TOML file.
 /// @param arg_sz filename size (must be 1 or greater).
-/// @param arg_val filename path (must be a valid JSON file).
+/// @param arg_val filename path (must be a valid TOML file).
 /// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
-bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dry_run) {
+bool TOMLManifestBuilder::BuildTarget(const std::string& argv_val, const bool dry_run) {
   std::string path;
 
   if (argv_val.empty()) {
@@ -32,56 +31,49 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
   }
 
   try {
-    std::ifstream json(path);
+    auto toml_file = toml::parse_file(path);
 
-    if (!json.good()) {
-      NeBuild::Logger::info() << "nebuild: error: file '" << path << "' is not a valid JSON"
-                              << std::endl;
-      return false;
-    }
-
-    JSON json_obj = JSON::parse(json);
-
-    std::string compiler = json_obj["compiler_path"].get<std::string>();
-
+    std::string compiler = toml_file["compiler_path"].as_string()->get();
+    
     std::string command = compiler + " ";
 
-    JSON header_search_path = json_obj["compiler_headers_path"];
+    auto header_search_path = *toml_file["compiler_headers_path"].as_array();
 
     for (auto& headers : header_search_path) {
-      command += "-I" + headers.get<std::string>() + " ";
+      command += "-I" + headers.as_string()->get() + " ";
     }
 
-    JSON headers_path  = json_obj["headers_path"];
+    auto headers_path  = *toml_file["headers_path"].as_array();
 
     for (auto& headers : headers_path) {
-      command += "-I" + headers.get<std::string>() + " ";
+      command += "-I" + headers.as_string()->get() + " ";
     }
 
-    JSON sources_files = json_obj["sources_path"];
+
+    auto sources_files = *toml_file["sources_path"].as_array();
 
     for (auto& sources : sources_files) {
-      command += sources.get<std::string>() + " ";
+      command += sources.as_string()->get() + " ";
     }
 
-    JSON macros_list = json_obj["cpp_macros"];
+    auto macros_list = *toml_file["cpp_macros"].as_array();
 
     for (auto& macro : macros_list) {
-      command += "-D" + macro.get<std::string>() + " ";
+      command += "-D" + macro.as_string()->get() + " ";
     }
 
-    JSON compiler_flags = json_obj["compiler_flags"];
+    auto compiler_flags = *toml_file["compiler_flags"].as_array();
 
     for (auto& flag : compiler_flags) {
-      command += flag.get<std::string>() + " ";
+      command += flag.as_string()->get() + " ";
     }
 
-    if (json_obj["compiler_std"].is_string())
-      command += "-std=" + json_obj["compiler_std"].get<std::string>() + " ";
+    if (toml_file["compiler_std"].is_string())
+      command += "-std=" + toml_file["compiler_std"].as_string()->get() + " ";
 
-    command += "-o " + json_obj["output_name"].get<std::string>();
+    command += "-o " + toml_file["output_name"].as_string()->get();
 
-    auto target = json_obj["output_name"].get<std::string>();
+    auto target = toml_file["output_name"].as_string()->get();
 
     NeBuild::Logger::info() << "output path: " << target << "\n";
     NeBuild::Logger::info() << "command: " << command << "\n";
@@ -101,6 +93,6 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
   return true;
 }
 
-const char* JSONManifestBuilder::BuildSystem() {
-  return "NeBuild (JSON)";
+const char* TOMLManifestBuilder::BuildSystem() {
+  return "NeBuild (TOML)";
 }
