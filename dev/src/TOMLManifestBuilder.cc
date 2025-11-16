@@ -34,39 +34,48 @@ bool TOMLManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     auto toml_file = toml::parse_file(path);
 
     std::string compiler = toml_file["compiler_path"].as_string()->get();
-    
+
     std::string command = compiler + " ";
 
-    auto header_search_path = *toml_file["compiler_headers_path"].as_array();
+    auto header_search_path = toml_file["compiler_headers_path"].as_array();
 
-    for (auto& headers : header_search_path) {
-      command += "-I" + headers.as_string()->get() + " ";
+    if (header_search_path) {
+      for (auto& headers : *header_search_path) {
+        command += "-I" + headers.as_string()->get() + " ";
+      }
     }
 
-    auto headers_path  = *toml_file["headers_path"].as_array();
+    auto headers_path = toml_file["headers_path"].as_array();
 
-    for (auto& headers : headers_path) {
-      command += "-I" + headers.as_string()->get() + " ";
+    if (headers_path) {
+      for (auto& headers : *headers_path) {
+        command += "-I" + headers.as_string()->get() + " ";
+      }
     }
 
+    auto sources_files = toml_file["sources_path"].as_array();
 
-    auto sources_files = *toml_file["sources_path"].as_array();
-
-    for (auto& sources : sources_files) {
-      command += sources.as_string()->get() + " ";
+    if (sources_files) {
+      for (auto& sources : *sources_files) {
+        command += sources.as_string()->get() + " ";
+      }
     }
 
-    auto macros_list = *toml_file["cpp_macros"].as_array();
+    auto macros_list = toml_file["cpp_macros"].as_array();
 
-    for (auto& macro : macros_list) {
-      command += "-D" + macro.as_string()->get() + " ";
+    if (macros_list) {
+      for (auto& macro : *macros_list) {
+        command += "-D" + macro.as_string()->get() + " ";
+      }
     }
 
-    auto compiler_flags = *toml_file["compiler_flags"].as_array();
+    auto compiler_flags = toml_file["compiler_flags"].as_array();
 
-    for (auto& flag : compiler_flags) {
-      command += flag.as_string()->get() + " ";
-    }
+    if (compiler_flags) {
+      for (auto& flag : *compiler_flags) {
+        command += flag.as_string()->get() + " ";
+      }
+      }
 
     if (toml_file["compiler_std"].is_string())
       command += "-std=" + toml_file["compiler_std"].as_string()->get() + " ";
