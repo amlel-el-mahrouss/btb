@@ -16,4 +16,4 @@
 
 - Run `nebuild` and pass the path to the manifest file.
 
-###### Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel.org Authors, all rights reserved.
+###### Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel.org Authors, licensed under the BSD 3 Clause license.

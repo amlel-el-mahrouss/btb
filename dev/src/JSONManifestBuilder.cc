@@ -5,12 +5,7 @@
 
 #include <BuildKit/JSONManifestBuilder.h>
 
-#if defined(NEBUILD_POSIX)
-#include <dlfcn.h>
-#endif
-
-using JSON = nlohmann::json;
-
+using JSON   = nlohmann::json;
 namespace FS = std::filesystem;
 
 using namespace NeBuild;
@@ -49,17 +44,24 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
 
     std::string compiler = json_obj["compiler_path"].get<std::string>();
 
-    JSON header_search_path = json_obj["headers_path"];
-    JSON sources_files      = json_obj["sources_path"];
-
     std::string command = compiler + " ";
 
-    for (auto& sources : sources_files) {
-      command += sources.get<std::string>() + " ";
-    }
+    JSON header_search_path = json_obj["compiler_headers_path"];
 
     for (auto& headers : header_search_path) {
       command += "-I" + headers.get<std::string>() + " ";
+    }
+
+    JSON headers_path  = json_obj["headers_path"];
+
+    for (auto& headers : headers_path) {
+      command += "-I" + headers.get<std::string>() + " ";
+    }
+
+    JSON sources_files = json_obj["sources_path"];
+
+    for (auto& sources : sources_files) {
+      command += sources.get<std::string>() + " ";
     }
 
     JSON macros_list = json_obj["cpp_macros"];
@@ -84,15 +86,6 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     NeBuild::Logger::info() << "output path: " << target << "\n";
     NeBuild::Logger::info() << "command: " << command << "\n";
 
-    try {
-      if (json_obj["dry_run"].get<bool>()) return true;
-    } catch (...) {
-    }
-
-    if (dry_run) {
-      return true;
-    }
-
     auto ret_exec = std::system(command.c_str());
 
     if (ret_exec > 0) {
@@ -100,57 +93,8 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
                               << std::endl;
       return false;
     }
-
-    try {
-      if (json_obj["run_after_build"].get<bool>()) {
-        if (target.ends_with(".so") || target.ends_with(".dylib")) {
-#if defined(NEBUILD_POSIX)
-          auto dll = dlopen(target.c_str(), RTLD_LAZY);
-
-          if (dll) {
-            int (*entrypoint)(void) = nullptr;
-            entrypoint = (decltype(entrypoint))dlsym(dll, "shared_runner");
-
-            if (entrypoint) entrypoint();
-
-            dlclose(dll);
-
-            return true;
-          }
-#endif
-
-          return false;
-        } else {
-          std::ifstream     file = std::ifstream(target);
-          std::stringstream ss;
-
-          ss << file.rdbuf();
-
-          if (ss.str()[0] == 'O' && ss.str()[1] == 'p' && ss.str()[2] == 'e' && ss.str()[3] == 'n')
-            NeBuild::Logger::info()
-                << "error: can't open PEF dynamic library, it mayn't contain an entrypoint"
-                << std::endl;
-          else if (ss.str()[0] == 'n' && ss.str()[1] == 'e' && ss.str()[2] == 'p' &&
-                   ss.str()[3] == 'O')
-            NeBuild::Logger::info()
-                << "error: can't open FEP dynamic library, it mayn't contain an entrypoint"
-                << std::endl;
-
-          return false;
-        }
-
-#if defined(NEBUILD_WINDOWS)
-        std::system((".\\" + target).c_str());
-#else
-        std::system(("./" + target).c_str());
-#endif
-      }
-    } catch (...) {
-      return true;
-    }
   } catch (std::runtime_error& err) {
     NeBuild::Logger::info() << "error: " << err.what() << std::endl;
-
     return false;
   }
 
