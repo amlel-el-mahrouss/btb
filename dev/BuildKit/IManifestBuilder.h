@@ -1,6 +1,6 @@
 // ============================================================= //
 // nebuild
-// Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
+// Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
 #pragma once

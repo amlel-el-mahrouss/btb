@@ -1,6 +1,6 @@
 // ============================================================= //
 // nebuild
-// Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
+// Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
 #include <BuildKit/TOMLManifestBuilder.h>
@@ -75,7 +75,7 @@ bool TOMLManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
       for (auto& flag : *compiler_flags) {
         command += flag.as_string()->get() + " ";
       }
-      }
+    }
 
     if (toml_file["compiler_std"].is_string())
       command += "-std=" + toml_file["compiler_std"].as_string()->get() + " ";

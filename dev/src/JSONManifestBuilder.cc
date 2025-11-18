@@ -1,6 +1,6 @@
 // ============================================================= //
 // nebuild
-// Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
+// Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
 #include <BuildKit/JSONManifestBuilder.h>
@@ -52,7 +52,7 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
       command += "-I" + headers.get<std::string>() + " ";
     }
 
-    JSON headers_path  = json_obj["headers_path"];
+    JSON headers_path = json_obj["headers_path"];
 
     for (auto& headers : headers_path) {
       command += "-I" + headers.get<std::string>() + " ";

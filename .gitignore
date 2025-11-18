@@ -5,6 +5,9 @@ latex/
 
 nebuild
 
+build/
+build*/
+
 .cmake/
 .qtc_clangd/
 CMakeCache.txt
