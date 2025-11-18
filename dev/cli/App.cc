@@ -1,7 +1,7 @@
 
 // ============================================================= //
 // nebuild
-// Copyright (C) 2024-2025, Amlal El Mahrouss, all rights reserved.
+// Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
 #include <BuildKit/JSONManifestBuilder.h>
@@ -19,10 +19,10 @@ int main(int argc, char** argv) {
     if (index_path == "-v" || index_path == "--version") {
       NeBuild::Logger::info() << "NeKernel Build Tool.\n";
       NeBuild::Logger::info()
-          << "Bugs, or issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
+          << "Bugs or issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
 
       return EXIT_SUCCESS;
-    } else if (index_path == "--dry-run") {
+    } else if (index_path == "--dry-run" || index_path == "-n") {
       kDryRun = true;
       continue;
     } else if (index_path == "-h" || index_path == "--help") {
