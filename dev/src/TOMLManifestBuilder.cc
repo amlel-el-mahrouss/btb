@@ -9,11 +9,13 @@ namespace FS = std::filesystem;
 
 using namespace NeBuild;
 
+/// =========================================================== ///
 /// @brief Builds a TOML target from a TOML file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid TOML file).
 /// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
+/// =========================================================== ///
 bool TOMLManifestBuilder::BuildTarget(const std::string& argv_val, const bool dry_run) {
   std::string path;
 
@@ -77,15 +79,17 @@ bool TOMLManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
       }
     }
 
-    if (toml_file["compiler_std"].is_string())
-      command += "-std=" + toml_file["compiler_std"].as_string()->get() + " ";
+    if (!toml_file["compiler_std"].is_string()) return false;
+
+    command += "-std=" + toml_file["compiler_std"].as_string()->get() + " ";
+
+    if (toml_file["output_name"].as_string() == nullptr) return false;
 
     command += "-o " + toml_file["output_name"].as_string()->get();
 
     auto target = toml_file["output_name"].as_string()->get();
 
-    NeBuild::Logger::info() << "output path: " << target << "\n";
-    NeBuild::Logger::info() << "command: " << command << "\n";
+    NeBuild::Logger::info() << "output: " << target << "\n";
 
     auto ret_exec = std::system(command.c_str());
 
@@ -95,13 +99,16 @@ bool TOMLManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
       return false;
     }
   } catch (std::runtime_error& err) {
-    NeBuild::Logger::info() << "error: " << err.what() << std::endl;
+    NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     return false;
   }
 
   return true;
 }
 
+/// =========================================================== ///
+/// @brief Returns the build system name.
+/// =========================================================== ///
 const char* TOMLManifestBuilder::BuildSystem() {
   return "NeBuild (TOML)";
 }

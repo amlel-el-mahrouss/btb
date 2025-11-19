@@ -6,6 +6,10 @@
 #ifndef NEBUILD_INCLUDES_H
 #define NEBUILD_INCLUDES_H
 
+/// =========================================================== ///
+/// @brief Imports file
+/// =========================================================== ///
+
 #include <rang/rang.h>
 #include <cassert>
 #include <cstddef>

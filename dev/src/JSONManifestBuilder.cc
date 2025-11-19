@@ -10,11 +10,13 @@ namespace FS = std::filesystem;
 
 using namespace NeBuild;
 
+/// =========================================================== ///
 /// @brief Builds a JSON target from a JSON file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid JSON file).
 /// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
+/// =========================================================== ///
 bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dry_run) {
   std::string path;
 
@@ -84,7 +86,6 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
     auto target = json_obj["output_name"].get<std::string>();
 
     NeBuild::Logger::info() << "output path: " << target << "\n";
-    NeBuild::Logger::info() << "command: " << command << "\n";
 
     auto ret_exec = std::system(command.c_str());
 
@@ -94,13 +95,16 @@ bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dr
       return false;
     }
   } catch (std::runtime_error& err) {
-    NeBuild::Logger::info() << "error: " << err.what() << std::endl;
+    NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     return false;
   }
 
   return true;
 }
 
+/// =========================================================== ///
+/// @brief Returns the build system name.
+/// =========================================================== ///
 const char* JSONManifestBuilder::BuildSystem() {
   return "NeBuild (JSON)";
 }

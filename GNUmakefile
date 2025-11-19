@@ -4,7 +4,7 @@
 # // ============================================================= //
 
 SUDO=sudo
-GCC=g++
+GCC=clang++
 GCC_MINGW=x86_64-w64-mingw32-g++
 CXXFLAGS=-I./dev -I./vendor
 CXXSTD= -std=c++20
