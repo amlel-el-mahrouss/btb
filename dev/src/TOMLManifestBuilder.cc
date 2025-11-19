@@ -4,10 +4,11 @@
 // ============================================================= //
 
 #include <BuildKit/TOMLManifestBuilder.h>
-
-namespace FS = std::filesystem;
+#include <filesystem>
 
 using namespace NeBuild;
+
+namespace FS = std::filesystem;
 
 /// =========================================================== ///
 /// @brief Builds a TOML target from a TOML file.

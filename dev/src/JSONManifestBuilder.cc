@@ -5,10 +5,11 @@
 
 #include <BuildKit/JSONManifestBuilder.h>
 
-using JSON   = nlohmann::json;
-namespace FS = std::filesystem;
-
 using namespace NeBuild;
+using namespace nlohmann;
+
+using JSON   = json;
+namespace FS = std::filesystem;
 
 /// =========================================================== ///
 /// @brief Builds a JSON target from a JSON file.
