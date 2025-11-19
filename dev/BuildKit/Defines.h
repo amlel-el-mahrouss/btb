@@ -7,12 +7,16 @@
 
 #include <BuildKit/Imports.h>
 
+/// =========================================================== ///
+/// @brief Defines file
+/// =========================================================== ///
+
 #define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
 
-#define LIBNEBUILD_VERSION "v0.0.1-libNeBuild"
+#define LIBNEBUILD_VERSION "v0.0.7-buildkit"
 
-#define LIBNEBUILD_VERSION_BCD 0x0001
+#define LIBNEBUILD_VERSION_BCD 0x0007
 
 #define LIBNEBUILD_VERSION_MAJOR 1
 #define LIBNEBUILD_VERSION_MINOR 1

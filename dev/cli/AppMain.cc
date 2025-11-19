@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     std::string index_path = argv[index];
 
     if (index_path == "-v" || index_path == "--version") {
-      NeBuild::Logger::info() << "NeKernel Build Tool.\n";
+      NeBuild::Logger::info() << "NeKernel Build.\n";
       NeBuild::Logger::info()
           << "Bugs or issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
 
@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
               goto end;
             } else {
               NeBuild::Logger::info()
-                  << "error: file '" << index_path << "' is not a JSON file!" << std::endl;
+                  << "error: file '" << index_path << "' is not a manifest file!" << std::endl;
               kFailed = true;
               return;
             }
