@@ -2,7 +2,7 @@
   "compiler_path": "clang++",
   "compiler_std": "c++20",
   "headers_path": [
-    "../../dev",
+    "../../include",
     "../../vendor"
   ],
   "sources_path": [

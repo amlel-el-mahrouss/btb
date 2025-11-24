@@ -4,8 +4,8 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
-#include <BuildKit/JSONManifestBuilder.h>
-#include <BuildKit/TOMLManifestBuilder.h>
+#include <NeBuildKit/JSONManifestBuilder.h>
+#include <NeBuildKit/TOMLManifestBuilder.h>
 
 static bool kFailed = false;
 static bool kDryRun = false;
@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     if (index_path == "-v" || index_path == "-version") {
       NeBuild::Logger::info() << "NeKernel Build.\n";
       NeBuild::Logger::info()
-          << "Bugs or issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
+          << "Bugs, Issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
 
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {
