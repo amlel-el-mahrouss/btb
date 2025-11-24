@@ -5,27 +5,27 @@
 
 #pragma once
 
-#include <BuildKit/IManifestBuilder.h>
-#include <toml++/toml.hpp>
+#include <NeBuildKit/IManifestBuilder.h>
+#include <json/json.h>
 
-/// @file TOMLManifestBuilder.h
-/// @brief TOML manifest builder header file.
+/// @file JSONManifestBuilder.h
+/// @brief JSON manifest builder header file.
 
 namespace NeBuild {
-/// @brief TOML builder
-class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
+/// @brief JSON builder
+class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
  public:
-  TOMLManifestBuilder()           = default;
-  ~TOMLManifestBuilder() override = default;
+  JSONManifestBuilder()           = default;
+  ~JSONManifestBuilder() override = default;
 
-  TOMLManifestBuilder& operator=(const TOMLManifestBuilder&) = default;
-  TOMLManifestBuilder(const TOMLManifestBuilder&)            = default;
+  JSONManifestBuilder& operator=(const JSONManifestBuilder&) = default;
+  JSONManifestBuilder(const JSONManifestBuilder&)            = default;
 
  public:
   /// =========================================================== ///
-  /// @brief Builds a TOML target from a TOML file.
+  /// @brief Builds a JSON target from a JSON file.
   /// @param arg_sz filename size (must be 1 or greater).
-  /// @param arg_val filename path (must be a valid TOML file).
+  /// @param arg_val filename path (must be a valid JSON file).
   /// @retval true building has succeeded.
   /// @retval false fail to build, see error message.
   /// =========================================================== ///

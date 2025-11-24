@@ -3,7 +3,7 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
-#include <BuildKit/TOMLManifestBuilder.h>
+#include <NeBuildKit/TOMLManifestBuilder.h>
 #include <filesystem>
 
 using namespace NeBuild;

@@ -3,7 +3,7 @@
 // Copyright (C) 2024-2025, Amlal El Mahrouss, licensed under BSD-3 license.
 // ============================================================= //
 
-#include <BuildKit/JSONManifestBuilder.h>
+#include <NeBuildKit/JSONManifestBuilder.h>
 
 using namespace NeBuild;
 using namespace nlohmann;
