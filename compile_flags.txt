@@ -1,4 +1,4 @@
 -std=c++20
--Idev/
+-Iinclude/
 -Ivendor
 -xc++
