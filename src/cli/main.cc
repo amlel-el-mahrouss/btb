@@ -6,6 +6,7 @@
 
 #include <NeBuildKit/JSONManifestBuilder.h>
 #include <NeBuildKit/TOMLManifestBuilder.h>
+#include "NeBuildKit/Defines.h"
 
 static bool kFailed = false;
 static bool kDryRun = false;
@@ -26,19 +27,15 @@ int main(int argc, char** argv) {
       kDryRun = true;
       continue;
     } else if (index_path == "-h" || index_path == "-help") {
-      NeBuild::Logger::info() << "usage: nebuild <file>\n";
+      NeBuild::Logger::info() << "usage: nebuild <options> <file>.\n";
 
       return EXIT_SUCCESS;
     }
 
-    if (index_path.starts_with("-")) {
-      NeBuild::Logger::info() << "error: unknown option '" << index_path << "'\n";
-
-      return EXIT_FAILURE;
-    }
+    auto index_cpy = index;
 
     std::thread job_build_thread(
-        [](std::string index_path) -> void {
+        [&index_path, &index, &index_cpy, &argv]() -> void {
           NeBuild::IManifestBuilder* builder = nullptr;
 
           const auto kJsonExtension = ".json";
@@ -55,7 +52,7 @@ int main(int argc, char** argv) {
             builder                   = new NeBuild::TOMLManifestBuilder();
 
             if (index_path.ends_with(kTomlExtension)) {
-              goto end;
+              goto toml_build;
             } else {
               NeBuild::Logger::info()
                   << "error: file '" << index_path << "' is not a manifest file!" << std::endl;
@@ -64,17 +61,26 @@ int main(int argc, char** argv) {
             }
           }
 
-        end:
+        toml_build:
+          std::string next_path;
+
+          if (argv[index_cpy + 1]) next_path = argv[index_cpy + 1];
+
+          if (next_path == "-build-system") {
+            NeBuild::Logger::info() << builder->BuildSystem() << std::endl;
+            std::exit(EXIT_SUCCESS);
+          }
+
           NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
 
           if (builder && !builder->BuildTarget(index_path, kDryRun)) {
             kFailed = true;
           }
 
+        toml_build_done:
           delete builder;
           builder = nullptr;
-        },
-        index_path);
+        });
 
     job_build_thread.join();
   }
