@@ -6,7 +6,6 @@
 
 #include <NeBuildKit/JSONManifestBuilder.h>
 #include <NeBuildKit/TOMLManifestBuilder.h>
-#include "NeBuildKit/Defines.h"
 
 static bool kFailed = false;
 static bool kDryRun = false;
@@ -18,9 +17,9 @@ int main(int argc, char** argv) {
     std::string index_path = argv[index];
 
     if (index_path == "-v" || index_path == "-version") {
-      NeBuild::Logger::info() << "NeKernel Build.\n";
+      NeBuild::Logger::info() << "NeBuild (" << LIBNEBUILD_VERSION << ")\n";
       NeBuild::Logger::info()
-          << "Bugs, Issues? Check out: https://github.com/nekernel-org/nebuild/issues\n";
+          << "Bugs, issues? https://github.com/nekernel-org/nebuild/issues\n";
 
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {

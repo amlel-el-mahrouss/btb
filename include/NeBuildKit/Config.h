@@ -5,11 +5,19 @@
 
 #pragma once
 
-#include <NeBuildKit/Imports.h>
+/// =========================================================== ///
+/// @author Amlal El Mahrouss
+/// =========================================================== ///
 
-/// =========================================================== ///
-/// @brief Defines file
-/// =========================================================== ///
+#include <rang/rang.h>
+#include <cassert>
+#include <cstddef>
+#include <cstdio>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <thread>
 
 #define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
@@ -18,11 +26,15 @@
 
 #define LIBNEBUILD_VERSION_BCD 0x0007
 
-#define LIBNEBUILD_VERSION_MAJOR 1
-#define LIBNEBUILD_VERSION_MINOR 1
-#define LIBNEBUILD_VERSION_PATCH 0
+#define LIBNEBUILD_VERSION_MAJOR 0
+#define LIBNEBUILD_VERSION_MINOR 0
+#define LIBNEBUILD_VERSION_PATCH 7
+
+#define LIBNEBUILD_EXPORT_C extern "C"
 
 #define LIBNEBUILD_UNUSED(X) ((void) X)
+
+namespace NeBuild {}
 
 namespace NeBuild::Logger {
 /// @brief replacement for std::cout for NeBuild logging.
@@ -32,3 +44,5 @@ inline std::ostream& info() noexcept {
   return out;
 }
 }  // namespace NeBuild::Logger
+
+
