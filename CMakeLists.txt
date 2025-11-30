@@ -17,6 +17,7 @@ add_executable(nebuild ${NEBUILD_SOURCES})
 target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/dev ${CMAKE_SOURCE_DIR}/vendor)
 
 option(BUILD_WINDOWS "Produce a Windows executable name (nebuild.exe)" OFF)
+
 if(BUILD_WINDOWS)
   set_target_properties(nebuild PROPERTIES OUTPUT_NAME "nebuild.exe")
 endif()
