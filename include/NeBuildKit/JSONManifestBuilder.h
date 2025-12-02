@@ -6,7 +6,6 @@
 #pragma once
 
 #include <NeBuildKit/IManifestBuilder.h>
-#include <json/json.h>
 
 /// @file JSONManifestBuilder.h
 /// @brief JSON manifest builder header file.
@@ -24,12 +23,11 @@ class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
  public:
   /// =========================================================== ///
   /// @brief Builds a JSON target from a JSON file.
-  /// @param arg_sz filename size (must be 1 or greater).
-  /// @param arg_val filename path (must be a valid JSON file).
+  /// @param config configuration of build.
   /// @retval true building has succeeded.
   /// @retval false fail to build, see error message.
   /// =========================================================== ///
-  bool BuildTarget(const std::string& arg_val, const bool dry_run = false) override;
+  bool BuildTarget(BuildConfig& config) override;
 
   /// =========================================================== ///
   /// @brief Returns the build system name.

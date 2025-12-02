@@ -4,6 +4,8 @@
 // ============================================================= //
 
 #include <NeBuildKit/JSONManifestBuilder.h>
+#include <json/json.h>
+#include <fstream>
 
 using namespace NeBuild;
 using namespace nlohmann;
@@ -18,14 +20,14 @@ namespace FS = std::filesystem;
 /// @retval true building has succeeded.
 /// @retval false fail to build, see error message.
 /// =========================================================== ///
-bool JSONManifestBuilder::BuildTarget(const std::string& argv_val, const bool dry_run) {
+bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
   std::string path;
 
-  if (argv_val.empty()) {
+  if (config.path_.empty()) {
     NeBuild::Logger::info() << "nebuild: error: file path is empty" << std::endl;
     return false;
   } else {
-    path = argv_val;
+    path = config.path_;
 
     if (!FS::exists(path)) {
       NeBuild::Logger::info() << "nebuild: error: file '" << path << "' does not exist"

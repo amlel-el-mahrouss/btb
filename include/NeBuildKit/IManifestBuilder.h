@@ -24,12 +24,11 @@ class IManifestBuilder {
 
   /// =========================================================== ///
   /// @brief Builds a TOML target from a file.
-  /// @param arg_sz filename size (must be 1 or greater).
-  /// @param arg_val filename path (must be a valid language file).
+  /// @param config configuration of build.
   /// @retval true building has succeeded.
   /// @retval false fail to build, see error message.
   /// =========================================================== ///
-  virtual bool BuildTarget(const std::string& arg, const bool dry_run = false) = 0;
+  virtual bool BuildTarget(BuildConfig& config) = 0;
 
   /// =========================================================== ///
   /// @brief Returns the build system name.

@@ -6,9 +6,9 @@
 
 #include <NeBuildKit/JSONManifestBuilder.h>
 #include <NeBuildKit/TOMLManifestBuilder.h>
+#include <thread>
 
-static bool kFailed = false;
-static bool kDryRun = false;
+static NeBuild::BuildConfig kConfig;
 
 int main(int argc, char** argv) {
   if (argc <= 1) return EXIT_FAILURE;
@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {
-      kDryRun = true;
+      kConfig.dry_run_ = true;
       continue;
     } else if (index_path == "-h" || index_path == "-help") {
       NeBuild::Logger::info() << "usage: nebuild <options> <file>.\n";
@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
             builder = new NeBuild::JSONManifestBuilder();
 
             if (!builder) {
-              kFailed = true;
+              kConfig.has_failed_ = true;
               return;
             }
           } else {
@@ -51,16 +51,16 @@ int main(int argc, char** argv) {
             builder                   = new NeBuild::TOMLManifestBuilder();
 
             if (index_path.ends_with(kTomlExtension)) {
-              goto toml_build;
+              goto nebuild_build_target;
             } else {
               NeBuild::Logger::info()
                   << "error: file '" << index_path << "' is not a manifest file!" << std::endl;
-              kFailed = true;
+              kConfig.has_failed_ = true;
               return;
             }
           }
 
-        toml_build:
+        nebuild_build_target:
           std::string next_path;
 
           if (argv[index_cpy + 1]) next_path = argv[index_cpy + 1];
@@ -72,8 +72,10 @@ int main(int argc, char** argv) {
 
           NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
 
-          if (builder && !builder->BuildTarget(index_path, kDryRun)) {
-            kFailed = true;
+          kConfig.path_ = index_path;
+          
+          if (builder && !builder->BuildTarget(kConfig)) {
+            kConfig.has_failed_ = true;
           }
 
         toml_build_done:
@@ -84,5 +86,5 @@ int main(int argc, char** argv) {
     job_build_thread.join();
   }
 
-  return kFailed ? EXIT_FAILURE : EXIT_SUCCESS;
+  return !kConfig ? EXIT_FAILURE : EXIT_SUCCESS;
 }

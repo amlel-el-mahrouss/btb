@@ -11,13 +11,7 @@
 
 #include <rang/rang.h>
 #include <cassert>
-#include <cstddef>
-#include <cstdio>
-#include <fstream>
 #include <iostream>
-#include <sstream>
-#include <string>
-#include <thread>
 
 #define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
 #define UNLIKELY(ARG) LIKELY(!(ARG))
@@ -34,7 +28,20 @@
 
 #define LIBNEBUILD_UNUSED(X) ((void) X)
 
-namespace NeBuild {}
+namespace NeBuild {
+  struct BuildConfig final {
+    bool has_failed_{false};
+    bool dry_run_{false};
+    std::string path_{};
+
+    explicit operator bool() {
+      return has_failed_;
+    }
+
+    BuildConfig() = default;
+    ~BuildConfig() {}
+  };
+}
 
 namespace NeBuild::Logger {
 /// @brief replacement for std::cout for NeBuild logging.
