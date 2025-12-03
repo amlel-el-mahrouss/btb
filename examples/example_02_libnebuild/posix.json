@@ -16,5 +16,5 @@
   "cpp_macros": [
     "FOO_MACRO"
   ],
-  "run_after_build": false
+  "run_after_build": true
 }
