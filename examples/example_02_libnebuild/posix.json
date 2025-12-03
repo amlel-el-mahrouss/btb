@@ -10,11 +10,11 @@
   ],
   "output_name": "libnebuild.elf",
   "compiler_flags": [
-    "-L/usr/local/lib",
-    "-lNeBuild"
+    "-L/usr/lib",
+    "-lNeBuildKit"
   ],
   "cpp_macros": [
     "FOO_MACRO"
   ],
-  "run_after_build": true
+  "run_after_build": false
 }
