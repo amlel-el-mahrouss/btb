@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <NeBuildKit/Config.h>
+#include <NeBuildKit/Detail/Config.h>
 
 #define NEBUILD_MANIFEST_BUILDER : public ::NeBuild::IManifestBuilder
 
