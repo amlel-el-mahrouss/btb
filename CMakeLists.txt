@@ -6,15 +6,15 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include_directories(${CMAKE_SOURCE_DIR}/dev ${CMAKE_SOURCE_DIR}/vendor)
+include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/vendor)
 
-file(GLOB NEBUILD_CLI_SOURCES "${CMAKE_SOURCE_DIR}/dev/cli/*.cc")
-file(GLOB NEBUILD_SRC_SOURCES "${CMAKE_SOURCE_DIR}/dev/src/*.cc")
+file(GLOB NEBUILD_CLI_SOURCES "${CMAKE_SOURCE_DIR}/src/cli/*.cc")
+file(GLOB NEBUILD_SRC_SOURCES "${CMAKE_SOURCE_DIR}/src/lib/*.cc")
 set(NEBUILD_SOURCES ${NEBUILD_CLI_SOURCES} ${NEBUILD_SRC_SOURCES})
 
 add_executable(nebuild ${NEBUILD_SOURCES})
 
-target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/dev ${CMAKE_SOURCE_DIR}/vendor)
+target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/vendor)
 
 option(BUILD_WINDOWS "Produce a Windows executable name (nebuild.exe)" OFF)
 
@@ -34,5 +34,5 @@ add_custom_target(build-nebuild-windows
 
 message(STATUS "Project: nebuild")
 message(STATUS "Sources: ${NEBUILD_SOURCES}")
-message(STATUS "Include dirs: ${CMAKE_SOURCE_DIR}/dev;${CMAKE_SOURCE_DIR}/vendor")
+message(STATUS "Include dirs: ${CMAKE_SOURCE_DIR}/src;${CMAKE_SOURCE_DIR}/vendor")
 message(STATUS "To build for Windows-style executable: configure with -DBUILD_WINDOWS=ON")
