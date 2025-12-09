@@ -17,9 +17,6 @@ class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   TOMLManifestBuilder()           = default;
   ~TOMLManifestBuilder() override = default;
 
-  TOMLManifestBuilder& operator=(const TOMLManifestBuilder&) = default;
-  TOMLManifestBuilder(const TOMLManifestBuilder&)            = default;
-
  public:
   /// =========================================================== ///
   /// @brief Builds a TOML target from a TOML file.
@@ -32,6 +29,6 @@ class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   /// =========================================================== ///
   /// @brief Returns the build system name.
   /// =========================================================== ///
-  const char* BuildSystem() override;
+  const std::string_view BuildSystem() override;
 };
 }  // namespace NeBuild

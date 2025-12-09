@@ -17,9 +17,6 @@ class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   JSONManifestBuilder()           = default;
   ~JSONManifestBuilder() override = default;
 
-  JSONManifestBuilder& operator=(const JSONManifestBuilder&) = default;
-  JSONManifestBuilder(const JSONManifestBuilder&)            = default;
-
  public:
   /// =========================================================== ///
   /// @brief Builds a JSON target from a JSON file.
@@ -32,6 +29,6 @@ class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
   /// =========================================================== ///
   /// @brief Returns the build system name.
   /// =========================================================== ///
-  const char* BuildSystem() override;
+  const std::string_view BuildSystem() override;
 };
 }  // namespace NeBuild

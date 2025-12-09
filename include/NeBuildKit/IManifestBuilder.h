@@ -6,6 +6,7 @@
 #pragma once
 
 #include <NeBuildKit/Detail/Config.h>
+#include <string_view>
 
 #define NEBUILD_MANIFEST_BUILDER : public ::NeBuild::IManifestBuilder
 
@@ -19,8 +20,8 @@ class IManifestBuilder {
   IManifestBuilder()          = default;
   virtual ~IManifestBuilder() = default;
 
-  IManifestBuilder& operator=(const IManifestBuilder&) = default;
-  IManifestBuilder(const IManifestBuilder&)            = default;
+  IManifestBuilder& operator=(const IManifestBuilder&) = delete;
+  IManifestBuilder(const IManifestBuilder&)            = delete;
 
   /// =========================================================== ///
   /// @brief Builds a TOML target from a file.
@@ -33,6 +34,6 @@ class IManifestBuilder {
   /// =========================================================== ///
   /// @brief Returns the build system name.
   /// =========================================================== ///
-  virtual const char* BuildSystem() = 0;
+  virtual const std::string_view BuildSystem() = 0;
 };
 }  // namespace NeBuild

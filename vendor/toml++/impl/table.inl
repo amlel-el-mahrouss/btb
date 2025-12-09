@@ -198,7 +198,7 @@ TOML_NAMESPACE_START {
   }
 
   TOML_EXTERNAL_LINKAGE
-  table& table::prune(bool recursive)& noexcept {
+  table& table::prune(bool recursive) & noexcept {
     if (map_.empty()) return *this;
 
     for (auto it = map_.begin(); it != map_.end();) {

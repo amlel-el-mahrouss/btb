@@ -7,10 +7,8 @@
 #include <json/json.h>
 #include <fstream>
 
-using namespace NeBuild;
-using namespace nlohmann;
-
-using JSON   = json;
+namespace NeBuild {
+using JSON   = nlohmann::json;
 namespace FS = std::filesystem;
 
 /// =========================================================== ///
@@ -95,10 +93,12 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
     if (ret_exec > 0) {
       NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
                               << std::endl;
+      config.has_failed_ = true;
       return false;
     }
   } catch (std::runtime_error& err) {
     NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
+    config.has_failed_ = true;
     return false;
   }
 
@@ -108,6 +108,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
 /// =========================================================== ///
 /// @brief Returns the build system name.
 /// =========================================================== ///
-const char* JSONManifestBuilder::BuildSystem() {
+const std::string_view JSONManifestBuilder::BuildSystem() {
   return "NeBuild (JSON)";
 }
+}  // namespace NeBuild

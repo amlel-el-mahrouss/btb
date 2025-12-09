@@ -4,11 +4,10 @@
 // ============================================================= //
 
 #include <NeBuildKit/TOMLManifestBuilder.h>
-#include <toml++/toml.hpp>
 #include <filesystem>
+#include <toml++/toml.hpp>
 
-using namespace NeBuild;
-
+namespace NeBuild {
 namespace FS = std::filesystem;
 
 /// =========================================================== ///
@@ -98,10 +97,12 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
     if (ret_exec > 0) {
       NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
                               << std::endl;
+      config.has_failed_ = true;
       return false;
     }
   } catch (std::runtime_error& err) {
     NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
+    config.has_failed_ = true;
     return false;
   }
 
@@ -111,6 +112,7 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
 /// =========================================================== ///
 /// @brief Returns the build system name.
 /// =========================================================== ///
-const char* TOMLManifestBuilder::BuildSystem() {
+const std::string_view TOMLManifestBuilder::BuildSystem() {
   return "NeBuild (TOML)";
 }
+}  // namespace NeBuild
