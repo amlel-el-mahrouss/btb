@@ -6,24 +6,24 @@
 
 #include <NeBuildKit/JSONManifestBuilder.h>
 #include <NeBuildKit/TOMLManifestBuilder.h>
+#include <memory>
 #include <thread>
-
-static NeBuild::BuildConfig kConfig;
 
 int main(int argc, char** argv) {
   if (argc <= 1) return EXIT_FAILURE;
+
+  NeBuild::BuildConfig config;
 
   for (size_t index = 1; index < argc; ++index) {
     std::string index_path = argv[index];
 
     if (index_path == "-v" || index_path == "-version") {
-      NeBuild::Logger::info() << "NeBuild (" << LIBNEBUILD_VERSION << ")\n";
-      NeBuild::Logger::info()
-          << "Bugs, issues? https://github.com/nekernel-org/nebuild/issues\n";
+      NeBuild::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
+      NeBuild::Logger::info() << "Bugs or issues? https://github.com/nekernel-org/nebuild/issues\n";
 
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {
-      kConfig.dry_run_ = true;
+      config.dry_run_ = true;
       continue;
     } else if (index_path == "-h" || index_path == "-help") {
       NeBuild::Logger::info() << "usage: nebuild <options> <file>.\n";
@@ -33,58 +33,50 @@ int main(int argc, char** argv) {
 
     auto index_cpy = index;
 
-    std::thread job_build_thread(
-        [&index_path, &index, &index_cpy, &argv]() -> void {
-          NeBuild::IManifestBuilder* builder = nullptr;
+    std::thread job_build_thread([&index_path, &index, &index_cpy, &argc, &argv, &config]() -> void {
+      std::unique_ptr<NeBuild::IManifestBuilder> builder;
 
-          const auto kJsonExtension = ".json";
+      const auto kJsonExtension = ".json";
 
-          if (index_path.ends_with(kJsonExtension)) {
-            builder = new NeBuild::JSONManifestBuilder();
+      if (index_path.ends_with(kJsonExtension)) {
+        builder = std::make_unique<NeBuild::JSONManifestBuilder>();
 
-            if (!builder) {
-              kConfig.has_failed_ = true;
-              return;
-            }
-          } else {
-            const auto kTomlExtension = ".toml";
-            builder                   = new NeBuild::TOMLManifestBuilder();
+        if (!builder) {
+          config.has_failed_ = true;
+          return;
+        }
+      } else {
+        const auto kTomlExtension = ".toml";
+        builder = std::make_unique<NeBuild::TOMLManifestBuilder>();
 
-            if (index_path.ends_with(kTomlExtension)) {
-              goto nebuild_build_target;
-            } else {
-              NeBuild::Logger::info()
-                  << "error: file '" << index_path << "' is not a manifest file!" << std::endl;
-              kConfig.has_failed_ = true;
-              return;
-            }
-          }
+        if (!index_path.ends_with(kTomlExtension)) {
+          NeBuild::Logger::info() << "error: file '" << index_path << "' is not a manifest file!"
+                                  << std::endl;
+          config.has_failed_ = true;
+          return;
+        }
+      }
 
-        nebuild_build_target:
-          std::string next_path;
+      std::string next_path;
 
-          if (argv[index_cpy + 1]) next_path = argv[index_cpy + 1];
+      if ((index_cpy + 1) < argc && argv[index_cpy + 1]) next_path = argv[index_cpy + 1];
 
-          if (next_path == "-build-system") {
-            NeBuild::Logger::info() << builder->BuildSystem() << std::endl;
-            std::exit(EXIT_SUCCESS);
-          }
+      if (next_path == "-build-system") {
+        NeBuild::Logger::info() << builder->BuildSystem() << std::endl;
+        std::exit(EXIT_SUCCESS);
+      }
 
-          NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
+      NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
 
-          kConfig.path_ = index_path;
-          
-          if (builder && !builder->BuildTarget(kConfig)) {
-            kConfig.has_failed_ = true;
-          }
+      config.path_ = index_path;
 
-        toml_build_done:
-          delete builder;
-          builder = nullptr;
-        });
+      if (builder && !builder->BuildTarget(config)) {
+        config.has_failed_ = true;
+      }
+    });
 
     job_build_thread.join();
   }
 
-  return !kConfig ? EXIT_FAILURE : EXIT_SUCCESS;
+  return !config ? EXIT_FAILURE : EXIT_SUCCESS;
 }

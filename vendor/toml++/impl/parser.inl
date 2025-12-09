@@ -391,11 +391,11 @@ TOML_ANON_NAMESPACE_START {
   };
 
   template <typename Char>
-  utf8_reader(std::basic_string_view<Char>,
-              std::string_view) -> utf8_reader<std::basic_string_view<Char>>;
+  utf8_reader(std::basic_string_view<Char>, std::string_view)
+      -> utf8_reader<std::basic_string_view<Char>>;
   template <typename Char>
-  utf8_reader(std::basic_string_view<Char>,
-              std::string&&) -> utf8_reader<std::basic_string_view<Char>>;
+  utf8_reader(std::basic_string_view<Char>, std::string&&)
+      -> utf8_reader<std::basic_string_view<Char>>;
   template <typename Char>
   utf8_reader(std::basic_istream<Char>&, std::string_view) -> utf8_reader<std::basic_istream<Char>>;
   template <typename Char>
@@ -3369,10 +3369,8 @@ TOML_ANON_NAMESPACE_START {
   TOML_INTERNAL_LINKAGE
   parse_result do_parse_file(std::string_view file_path) {
 #if TOML_EXCEPTIONS
-#define TOML_PARSE_FILE_ERROR(msg, path)                                         \
-  throw parse_error {                                                            \
-    msg, source_position{}, std::make_shared<const std::string>(std::move(path)) \
-  }
+#define TOML_PARSE_FILE_ERROR(msg, path) \
+  throw parse_error{msg, source_position{}, std::make_shared<const std::string>(std::move(path))}
 #else
 #define TOML_PARSE_FILE_ERROR(msg, path)                                           \
   return parse_result {                                                            \
