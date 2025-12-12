@@ -8,7 +8,7 @@
   "sources_path": [
     "libnebuild.cc"
   ],
-  "output_name": "libnebuild.elf",
+  "output_name": "./libnebuild.elf",
   "compiler_flags": [
     "-L/usr/lib",
     "-lNeBuildKit"
