@@ -1,6 +1,5 @@
 # NeBuild
 
-![CI](https://github.com/nekernel-org/nebuild/actions/workflows/c-cpp.yml/badge.svg)
 ![CI](https://github.com/nekernel-org/nebuild/actions/workflows/c-cpp-dev.yml/badge.svg)
 [![License: GPL-3.0](https://img.shields.io/badge/license-BSD--3.0-blue.svg)](LICENSE)
 

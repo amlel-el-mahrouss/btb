@@ -12,7 +12,7 @@
 
 namespace NeBuild {
 /// @brief JSON builder
-class JSONManifestBuilder final NEBUILD_MANIFEST_BUILDER {
+class JSONManifestBuilder NEBUILD_MANIFEST_BUILDER {
  public:
   JSONManifestBuilder()           = default;
   ~JSONManifestBuilder() override = default;

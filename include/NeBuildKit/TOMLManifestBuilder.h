@@ -12,7 +12,7 @@
 
 namespace NeBuild {
 /// @brief TOML builder
-class TOMLManifestBuilder final NEBUILD_MANIFEST_BUILDER {
+class TOMLManifestBuilder NEBUILD_MANIFEST_BUILDER {
  public:
   TOMLManifestBuilder()           = default;
   ~TOMLManifestBuilder() override = default;

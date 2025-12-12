@@ -8,7 +8,7 @@
 #include <NeBuildKit/Detail/Config.h>
 #include <string_view>
 
-#define NEBUILD_MANIFEST_BUILDER : public ::NeBuild::IManifestBuilder
+#define NEBUILD_MANIFEST_BUILDER final : public ::NeBuild::IManifestBuilder
 
 namespace NeBuild {
 /// =========================================================== ///
@@ -29,11 +29,11 @@ class IManifestBuilder {
   /// @retval true building has succeeded.
   /// @retval false fail to build, see error message.
   /// =========================================================== ///
-  virtual bool BuildTarget(BuildConfig& config) = 0;
+  virtual bool BuildTarget(BuildConfig& config) { return false; }
 
   /// =========================================================== ///
   /// @brief Returns the build system name.
   /// =========================================================== ///
-  virtual const std::string_view BuildSystem() = 0;
+  virtual const std::string_view BuildSystem() { return "(null)"; }
 };
 }  // namespace NeBuild

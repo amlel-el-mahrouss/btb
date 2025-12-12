@@ -100,6 +100,23 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
       config.has_failed_ = true;
       return false;
     }
+
+    if (!config.dry_run_) {
+      auto run_after_build = toml_file["run_after_build"].as_boolean();
+      if (!run_after_build) return true;
+
+      auto val = run_after_build->get();
+      if (val) {
+        ret_exec = std::system(target.c_str());
+
+        if (ret_exec > 0) {
+          NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
+                                  << std::endl;
+          config.has_failed_ = true;
+          return false;
+        }
+      }
+    }
   } catch (std::runtime_error& err) {
     NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     config.has_failed_ = true;

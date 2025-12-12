@@ -8,7 +8,7 @@
   "sources_path": [
     "libbtb.cc"
   ],
-  "output_name": "libbtb.exe",
+  "output_name": "./libbtb.exe",
   "compiler_flags": [
     "-lNeBuild"
   ],
