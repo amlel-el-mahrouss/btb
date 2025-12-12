@@ -1,3 +1,8 @@
+# // ============================================================= //
+# // nebuild
+# // Copyright (C) 2025, Amlal El Mahrouss, licensed under BSD-3 license.
+# // ============================================================= //
+
 cmake_minimum_required(VERSION 3.16)
 
 project(nebuild VERSION 0.1 LANGUAGES CXX)
