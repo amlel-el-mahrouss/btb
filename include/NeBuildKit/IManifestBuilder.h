@@ -8,7 +8,10 @@
 #include <NeBuildKit/Detail/Config.h>
 #include <string_view>
 
-#define NEBUILD_MANIFEST_BUILDER final : public ::NeBuild::IManifestBuilder
+#define NEBUILD_MANIFEST_BUILDER \
+  final:                         \
+  public                         \
+  ::NeBuild::IManifestBuilder
 
 namespace NeBuild {
 /// =========================================================== ///

@@ -36,7 +36,7 @@ struct BuildConfig final {
 
   explicit operator bool() { return has_failed_; }
 
-  BuildConfig() = default;
+  BuildConfig()  = default;
   ~BuildConfig() = default;
 };
 }  // namespace NeBuild
