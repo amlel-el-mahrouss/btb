@@ -95,24 +95,6 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
       config.has_failed_ = true;
       return false;
     }
-
-    // FIXME: segfault.
-#if 0
-    if (!config.dry_run_) {
-      auto run_after_build = json_obj["run_after_build"].get<bool>();
-
-      if (run_after_build) {
-        ret_exec = std::system(target.c_str());
-
-        if (ret_exec > 0) {
-          NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
-                                  << std::endl;
-          config.has_failed_ = true;
-          return false;
-        }
-      }
-    }
-#endif
   } catch (std::exception& err) {
     NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     config.has_failed_ = true;
