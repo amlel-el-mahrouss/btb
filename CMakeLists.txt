@@ -1,10 +1,10 @@
 # // ============================================================= //
-# // nebuild
+# // NeBuild
 # // Copyright (C) 2025, Amlal El Mahrouss, licensed under BSD-3 license.
 # // ============================================================= //
 
 # AMLALE: Update the CMake version, which requires a version that was too old.
-cmake_minimum_required(VERSION 4.00)
+cmake_minimum_required(VERSION 3.30)
 
 project(nebuild VERSION 0.1 LANGUAGES CXX)
 
@@ -24,21 +24,12 @@ target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_S
 
 option(BUILD_WINDOWS "Produce a Windows executable name (nebuild.exe)" OFF)
 
-# Append .exe when it's a Windows build (The Windows loader requires it)
-if(BUILD_WINDOWS)
-  set_target_properties(nebuild PROPERTIES OUTPUT_NAME "nebuild.exe")
-endif()
-
 add_custom_target(build-nebuild
   COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target nebuild
   COMMENT "=> NeBuild built successfully for POSIX."
 )
 
-add_custom_target(build-nebuild-windows
-  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target nebuild
-  COMMENT "=> NeBuild built successfully for Windows (configure with -DBUILD_WINDOWS=ON)."
-)
-
 message(STATUS "Sources: ${NEBUILD_SOURCES}")
-message(STATUS "Include dirs: ${CMAKE_SOURCE_DIR}/src;${CMAKE_SOURCE_DIR}/vendor")
-message(STATUS "To build for Windows-style executable: configure with -DBUILD_WINDOWS=ON")
+message(STATUS "Include Dirs: ${CMAKE_SOURCE_DIR}/src;${CMAKE_SOURCE_DIR}/vendor")
+
+include(install_windows.cmake)
