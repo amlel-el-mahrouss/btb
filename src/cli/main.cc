@@ -1,6 +1,8 @@
 
 // ============================================================= //
 // NeBuild
+// FILE: main.cc
+// PURPOSE: Main Tool Entrypoint.
 // Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
 // ============================================================= //
 
@@ -10,7 +12,7 @@
 #include <thread>
 
 int main(int argc, char** argv) {
-  if (argc <= 1) return EXIT_FAILURE;
+  if (argc < 1) return EXIT_FAILURE;
 
   NeBuild::BuildConfig config;
 
@@ -19,8 +21,6 @@ int main(int argc, char** argv) {
 
     if (index_path == "-v" || index_path == "-version") {
       NeBuild::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
-      NeBuild::Logger::info() << "Bugs or issues? https://github.com/nekernel-org/nebuild/issues\n";
-
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {
       config.dry_run_ = true;
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     std::thread job_build_thread([&index_path, &index, &index_cpy, &argc, &argv, &config]() -> void {
       std::unique_ptr<NeBuild::IManifestBuilder> builder;
 
-      const auto kJsonExtension = ".json";
+      constexpr auto kJsonExtension = ".json";
 
       if (index_path.ends_with(kJsonExtension)) {
         builder = std::make_unique<NeBuild::JSONManifestBuilder>();
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
           return;
         }
       } else {
-        const auto kTomlExtension = ".toml";
+        constexpr auto kTomlExtension = ".toml";
         builder = std::make_unique<NeBuild::TOMLManifestBuilder>();
 
         if (!index_path.ends_with(kTomlExtension)) {
@@ -78,5 +78,6 @@ int main(int argc, char** argv) {
     job_build_thread.join();
   }
 
+  // check for whether config is valid. if so return failure, or success.
   return !config ? EXIT_FAILURE : EXIT_SUCCESS;
 }
