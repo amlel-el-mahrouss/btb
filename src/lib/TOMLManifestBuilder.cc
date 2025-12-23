@@ -15,8 +15,7 @@ namespace FS = std::filesystem;
 /// @brief Builds a TOML target from a TOML file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid TOML file).
-/// @retval true building has succeeded.
-/// @retval false fail to build, see error message.
+/// @return bool: whether the build has succeeded or not.
 /// =========================================================== ///
 bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
   std::string path;

@@ -15,8 +15,7 @@ namespace FS = std::filesystem;
 /// @brief Builds a nlohmann::json target from a nlohmann::json file.
 /// @param arg_sz filename size (must be 1 or greater).
 /// @param arg_val filename path (must be a valid nlohmann::json file).
-/// @retval true building has succeeded.
-/// @retval false fail to build, see error message.
+/// @return bool: whether the build has succeeded or not.
 /// =========================================================== ///
 bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
   std::string path;
