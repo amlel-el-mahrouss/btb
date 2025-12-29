@@ -113,6 +113,6 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
 /// @brief Returns the build system name.
 /// =========================================================== ///
 const std::string_view TOMLManifestBuilder::BuildSystem() {
-  return "NeBuild (TOML)";
+  return "NeBuild (toml++::toml)";
 }
 }  // namespace NeBuild
