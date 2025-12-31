@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
       NeBuild::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {
-      config.dry_run_ = true;
+      config.dry_run(true);
       continue;
     } else if (index_path == "-h" || index_path == "-help") {
       NeBuild::Logger::info() << "usage: nebuild <options> <file>.\n";
@@ -41,8 +41,9 @@ int main(int argc, char** argv) {
       if (index_path.ends_with(kJsonExtension)) {
         builder = std::make_unique<NeBuild::JSONManifestBuilder>();
 
+	/// report failed build to config.
         if (!builder) {
-          config.has_failed_ = true;
+          config.has_failed(true);
           return;
         }
       } else {
@@ -52,7 +53,7 @@ int main(int argc, char** argv) {
         if (!index_path.ends_with(kTomlExtension)) {
           NeBuild::Logger::info() << "error: file '" << index_path << "' is not a manifest file!"
                                   << std::endl;
-          config.has_failed_ = true;
+          config.has_failed(true);
           return;
         }
       }
@@ -68,10 +69,10 @@ int main(int argc, char** argv) {
 
       NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
 
-      config.path_ = index_path;
+      config.path(index_path);
 
       if (builder && !builder->BuildTarget(config)) {
-        config.has_failed_ = true;
+        config.has_failed(true);
       }
     });
 

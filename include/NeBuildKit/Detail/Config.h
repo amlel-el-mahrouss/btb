@@ -13,9 +13,6 @@
 #include <cassert>
 #include <iostream>
 
-#define LIKELY(ARG) ((ARG) ? assert(false) : ((void) 0))
-#define UNLIKELY(ARG) LIKELY(!(ARG))
-
 #define NEBUILD_VERSION "v0.0.8-buildkit"
 
 #define NEBUILD_VERSION_BCD 0x0007
@@ -28,21 +25,41 @@
 
 #define NEBUILD_UNUSED(X) ((void) X)
 
+#define b_internal private
+
+#ifdef NEBUILD_INTERNAL_SDK
+#undef b_internal
+#define b_internal public
+#endif
+
 namespace NeBuild {
 struct BuildConfig final {
-  bool        has_failed_{false};
-  bool        dry_run_{false};
-  std::string path_{};
+ b_internal:
+  bool has_failed_{false};
+  bool            dry_run_{false};
+  std::string     path_{};
 
+ public:
   explicit operator bool() { return has_failed_; }
+
+  bool dry_run() { return dry_run_; }
+  void dry_run(const bool dr) { dry_run_ = dr; }
+
+  bool has_failed() { return has_failed_; }
+  void has_failed(const bool dr) { has_failed_ = dr; }
+
+  const std::string& path() { return path_; }
+  void               path(const std::string& pat) { path_ = pat; }
 
   BuildConfig()  = default;
   ~BuildConfig() = default;
 };
 }  // namespace NeBuild
 
+/// \brief Logger namespace.
 namespace NeBuild::Logger {
 /// @brief replacement for std::cout for NeBuild logging.
+/// @todo change this to spdlog?
 inline std::ostream& info() noexcept {
   auto& out = std::cout;
   out << rang::fg::red << "nebuild: " << rang::style::reset;

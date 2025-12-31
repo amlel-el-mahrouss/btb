@@ -100,7 +100,7 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
       config.has_failed_ = true;
       return false;
     }
-  } catch (std::runtime_error& err) {
+  } catch (const std::exception& err) {
     NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     config.has_failed_ = true;
     return false;

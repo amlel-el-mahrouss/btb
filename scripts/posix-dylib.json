@@ -5,6 +5,6 @@
   "sources_path": ["src/lib/*.cc"],
   "output_name": "libNeBuildKit.so",
   "compiler_flags": ["-fPIC", "-shared"],
-  "cpp_macros": ["NEBUILD_POSIX", "NEBUILD_DYLIB"],
+  "cpp_macros": ["NEBUILD_POSIX", "NEBUILD_INTERNAL_SDK"],
   "run_after_build": false
 }

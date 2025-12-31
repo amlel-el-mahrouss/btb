@@ -5,6 +5,6 @@
   "sources_path": ["src/lib/*.cc"],
   "output_name": "libNeBuildKit.dylib",
   "compiler_flags": ["-fPIC", "-shared"],
-  "cpp_macros": ["NEBUILD_DYLIB", "NEBUILD_OSX"],
+  "cpp_macros": ["NEBUILD_INTERNAL_SDK", "NEBUILD_OSX"],
   "run_after_build": false
 }

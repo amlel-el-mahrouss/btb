@@ -6,9 +6,9 @@
 SUDO=sudo
 GCC=clang++
 GCC_MINGW=x86_64-w64-mingw32-g++
-CXXFLAGS=-I./include -I./vendor
+CXXFLAGS=-I./include -I./vendor -lNeBuildKit
 CXXSTD= -std=c++20
-SRC=$(wildcard src/cli/*.cc) $(wildcard src/lib/*.cc)
+SRC=$(wildcard src/cli/*.cc)
 OUT=nebuild
 CP=cp
 
