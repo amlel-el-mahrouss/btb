@@ -1,12 +1,12 @@
 # // ============================================================= //
 # // NeBuild
-# // Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
+# // Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
 # // ============================================================= //
 
 SUDO=sudo
 GCC=clang++
 GCC_MINGW=x86_64-w64-mingw32-g++
-CXXFLAGS=-I./include -I./vendor -lNeBuildKit
+CXXFLAGS=-I./include -L/usr/local/lib -I./vendor -lNeBuildKit
 CXXSTD= -std=c++20
 SRC=$(wildcard src/cli/*.cc)
 OUT=nebuild

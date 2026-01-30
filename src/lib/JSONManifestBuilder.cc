@@ -44,6 +44,13 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
 
     nlohmann::json json_obj = nlohmann::json::parse(json);
 
+    nlohmann::json description = json_obj["description"];
+
+    NeBuild::Logger::info() << "nebuild: installing: " << path << std::endl;
+
+    if (auto res = description.get<std::string>(); !res.empty())
+      NeBuild::Logger::info() << "nebuild: description: " << res << std::endl;
+
     std::string compiler = json_obj["compiler_path"].get<std::string>();
 
     std::string command = compiler + " ";
