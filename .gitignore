@@ -3,6 +3,9 @@ syntax: glob
 html/
 latex/
 
+*.cmi
+*.cmo
+
 nebuild
 
 build/
