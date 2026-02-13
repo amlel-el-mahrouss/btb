@@ -34,10 +34,9 @@
 
 namespace NeBuild {
 struct BuildConfig final {
- b_internal:
-  bool has_failed_{false};
-  bool            dry_run_{false};
-  std::string     path_{};
+  b_internal : bool has_failed_{false};
+  bool              dry_run_{false};
+  std::string       path_{};
 
  public:
   explicit operator bool() { return has_failed_; }

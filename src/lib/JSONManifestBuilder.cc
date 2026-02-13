@@ -21,13 +21,13 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
   std::string path;
 
   if (config.path_.empty()) {
-    NeBuild::Logger::info() << "nebuild: error: file path is empty" << std::endl;
+    NeBuild::Logger::info() << "error: file path is empty" << std::endl;
     return false;
   } else {
     path = config.path_;
 
     if (!FS::exists(path)) {
-      NeBuild::Logger::info() << "nebuild: error: file '" << path << "' does not exist"
+      NeBuild::Logger::info() << "error: file '" << path << "' does not exist"
                               << std::endl;
       return false;
     }
@@ -37,7 +37,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
     std::ifstream json(path);
 
     if (!json.good()) {
-      NeBuild::Logger::info() << "nebuild: error: file '" << path
+      NeBuild::Logger::info() << "error: file '" << path
                               << "' is not a valid nlohmann::json" << std::endl;
       return false;
     }
@@ -47,7 +47,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
     try {
       nlohmann::json description = json_obj["description"];
 
-      NeBuild::Logger::info() << "nebuild: installing: " << path << std::endl;
+      NeBuild::Logger::info() << "package path: " << path << std::endl;
 
       if (auto res = description.get<std::string>(); !res.empty())
         NeBuild::Logger::info() << "nebuild: description: " << res << std::endl;
