@@ -32,10 +32,20 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
       return false;
     }
   }
-
+    
   try {
     auto toml_file = toml::parse_file(path);
 
+    try {
+      auto* description = toml_file["description"].as_string(); 
+      
+      NeBuild::Logger::info() << "package path: " << path << std::endl;
+      
+      if (description) NeBuild::Logger::info() << "nebuild: description: " << description->get() << std::endl;
+    } catch (...) {
+      // ...
+    }
+    
     std::string compiler = toml_file["compiler_path"].as_string()->get();
 
     std::string command = compiler + " ";
