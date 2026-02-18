@@ -50,7 +50,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
       NeBuild::Logger::info() << "package path: " << path << std::endl;
 
       if (auto res = description.get<std::string>(); !res.empty())
-        NeBuild::Logger::info() << "nebuild: description: " << res << std::endl;
+        NeBuild::Logger::info() << "description: " << res << std::endl;
     } catch (...) {
       
     }

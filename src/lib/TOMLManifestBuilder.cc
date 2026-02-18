@@ -41,7 +41,7 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
       
       NeBuild::Logger::info() << "package path: " << path << std::endl;
       
-      if (description) NeBuild::Logger::info() << "nebuild: description: " << description->get() << std::endl;
+      if (description) NeBuild::Logger::info() << "description: " << description->get() << std::endl;
     } catch (...) {
       // ...
     }
