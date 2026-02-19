@@ -26,8 +26,7 @@ int main(int argc, char** argv) {
       config.dry_run(true);
       continue;
     } else if (index_path == "-h" || index_path == "-help") {
-      NeBuild::Logger::info() << "usage: nebuild <options> <file>.\n";
-
+      NeBuild::Logger::info() << "nebuild <options> <file.{json, toml}>\n";
       return EXIT_SUCCESS;
     }
 

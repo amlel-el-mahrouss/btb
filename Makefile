@@ -8,7 +8,7 @@ GCC=clang++
 GCC_MINGW=x86_64-w64-mingw32-g++
 CXXFLAGS=-I./include -L/usr/local/lib -I./vendor -lNeBuildKit
 CXXSTD= -std=c++20
-SRC=$(wildcard src/cli/*.cc)
+SRC=$(wildcard src/cli/*.cpp)
 OUT=nebuild
 CP=cp
 
