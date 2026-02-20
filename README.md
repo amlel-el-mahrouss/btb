@@ -1,7 +1,8 @@
-# NeBuild
+# The NeBuild System.
 
-![CI](https://github.com/nekernel-org/nebuild/actions/workflows/c-cpp-dev.yml/badge.svg)
 [![License: GPL-3.0](https://img.shields.io/badge/license-BSD--3.0-blue.svg)](LICENSE)
+
+Fast and easy to use build system for low-level projects.
 
 ## Requirements:
 
@@ -29,4 +30,4 @@ cmake -S . -B build
 cmake --build build
 ```
 
-###### Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel.org Authors, licensed under the BSD 3 Clause license.
+###### Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel.org Authors, licensed under the BSD 3 Clause license.
