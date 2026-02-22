@@ -1,7 +1,7 @@
 // ============================================================= //
 // NeBuild
-// PURPOSE: TOML support.
-// Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
+// PURPOSE: TOML build support.
+// Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
 // ============================================================= //
 
 #include <NeBuildKit/TOMLManifestBuilder.h>
@@ -9,6 +9,7 @@
 #include <toml++/toml.hpp>
 
 namespace NeBuild {
+
 namespace FS = std::filesystem;
 
 /// =========================================================== ///
@@ -125,4 +126,5 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
 const std::string_view TOMLManifestBuilder::BuildSystem() {
   return "NeBuild (toml++::toml)";
 }
+  
 }  // namespace NeBuild

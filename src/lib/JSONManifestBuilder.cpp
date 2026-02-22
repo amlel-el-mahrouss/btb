@@ -1,7 +1,7 @@
 // ============================================================= //
 // NeBuild
-// PURPOSE: JSON support.
-// Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
+// PURPOSE: JSON build support.
+// Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
 // ============================================================= //
 
 #include <NeBuildKit/JSONManifestBuilder.h>
@@ -9,6 +9,7 @@
 #include <fstream>
 
 namespace NeBuild {
+
 namespace FS = std::filesystem;
 
 /// =========================================================== ///
@@ -121,4 +122,5 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
 const std::string_view JSONManifestBuilder::BuildSystem() {
   return "NeBuild (nlohmann::json)";
 }
+  
 }  // namespace NeBuild

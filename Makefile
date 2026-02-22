@@ -15,12 +15,12 @@ CP=cp
 .PHONY: build-nebuild
 build-nebuild:
 	$(SUDO) $(GCC) $(CXXFLAGS) $(SRC) $(CXXSTD) -o $(OUT)
-	@echo "=> NeBuild built successfully for POSIX."
+	@echo "=> Successfully built NeBuild for POSIX."
 
 .PHONY: build-nebuild-windows
 build-nebuild-windows:
 	$(GCC_MINGW) $(CXXFLAGS) $(SRC) -o $(OUT).exe
-	@echo "=> NeBuild built successfully for Windows."
+	@echo "=> Successfully build NeBuild for Windows."
 
 .PHONY: help
 help:
