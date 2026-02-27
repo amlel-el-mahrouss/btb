@@ -52,9 +52,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
 
       if (auto res = description.get<std::string>(); !res.empty())
         NeBuild::Logger::info() << "description: " << res << std::endl;
-    } catch (...) {
-      
-    }
+    } catch (...) {}
 
     std::string compiler = json_obj["compiler_path"].get<std::string>();
 
@@ -110,6 +108,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
   } catch (const std::exception& err) {
     NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     config.has_failed_ = true;
+
     return false;
   }
 
@@ -122,5 +121,5 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
 const std::string_view JSONManifestBuilder::BuildSystem() {
   return "NeBuild (nlohmann::json)";
 }
-  
+
 }  // namespace NeBuild
