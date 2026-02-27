@@ -2,7 +2,7 @@
   "compiler_path": "clang++",
   "compiler_std": "c++20",
   "headers_path": ["include", "vendor"],
-  "sources_path": ["src/lib/*.cpp"],
+  "sources_path": ["src/NeBuildKit/*.cpp"],
   "output_name": "libNeBuildKit.dylib",
   "compiler_flags": ["-fPIC", "-shared"],
   "cpp_macros": ["NEBUILD_INTERNAL_SDK", "NEBUILD_OSX"],
