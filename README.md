@@ -29,5 +29,4 @@ nebuild targets/osx.json
 cmake -S . -B build
 cmake --build build
 ```
-
-###### Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel.org Authors, licensed under the BSD 3 Clause license.
+###### Copyright (C) 2024-2026, Amlal El Mahrouss and Ne.org Authors, licensed under the BSD 3 Clause license.
