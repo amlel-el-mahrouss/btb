@@ -1,6 +1,6 @@
 // ============================================================= //
 // NeBuild
-// Copyright (C) 2024-2025, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
+// Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
 // ============================================================= //
 
 #pragma once
@@ -42,13 +42,13 @@ struct BuildConfig final {
   explicit operator bool() { return has_failed_; }
 
   bool dry_run() { return dry_run_; }
-  void dry_run(const bool dr) { dry_run_ = dr; }
+  void dry_run(const bool& dr) { dry_run_ = dr; }
 
   bool has_failed() { return has_failed_; }
-  void has_failed(const bool dr) { has_failed_ = dr; }
+  void has_failed(const bool& dr) { has_failed_ = dr; }
 
   const std::string& path() { return path_; }
-  void               path(const std::string& pat) { path_ = pat; }
+  void               path(const std::string& path) { path_ = path; }
 
   BuildConfig()  = default;
   ~BuildConfig() = default;
@@ -57,6 +57,7 @@ struct BuildConfig final {
 
 /// \brief Logger namespace.
 namespace NeBuild::Logger {
+
 /// @brief replacement for std::cout for NeBuild logging.
 /// @todo change this to spdlog?
 inline std::ostream& info() noexcept {
@@ -64,4 +65,5 @@ inline std::ostream& info() noexcept {
   out << rang::fg::red << "nebuild: " << rang::style::reset;
   return out;
 }
+
 }  // namespace NeBuild::Logger

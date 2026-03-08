@@ -10,16 +10,20 @@
 #include <NeBuildKit/TOMLManifestBuilder.h>
 #include <memory>
 #include <thread>
+#include <mutex>
+#include <vector>
 
-constexpr auto kNeBuildFileJson = "Jbuild";
-constexpr auto kNeBuildFileToml = "Tbuild";
+constexpr auto kNeBuildFileJson = "Jbuild.json";
+constexpr auto kNeBuildFileToml = "Tbuild.toml";
 
 int main(int argc, char** argv) {
   if (argc < 1) return EXIT_FAILURE;
 
   NeBuild::BuildConfig config;
 
-  for (size_t index = 1; index < argc; ++index) {
+  std::vector<std::thread> jobs;
+  
+  for (size_t index{1}; index < argc; ++index) {
     std::string index_path = argv[index];
 
     if (index_path == "-v" || index_path == "-version") {
@@ -34,8 +38,10 @@ int main(int argc, char** argv) {
     }
 
     auto index_cpy = index;
+    std::mutex mutex;
 
-    std::thread job_build_thread([&index_path, &index, &index_cpy, &argc, &argv, &config]() -> void {
+    jobs.push_back(std::thread{[&mutex, &index, &index_cpy, &argc, &argv, &config](std::string index_path) -> void {
+      std::unique_lock<decltype(mutex)> lk{mutex};
       std::unique_ptr<NeBuild::IManifestBuilder> builder;
 
       constexpr auto kJsonExtension = ".json";
@@ -76,11 +82,12 @@ int main(int argc, char** argv) {
       if (builder && !builder->BuildTarget(config)) {
         config.has_failed(true);
       }
-    });
-
-    job_build_thread.join();
+    }, index_path});
   }
 
+  for (auto& job : jobs)
+    job.join();
+  
   // check for whether config is valid. if so return failure, or success.
   return !config ? EXIT_FAILURE : EXIT_SUCCESS;
 }
