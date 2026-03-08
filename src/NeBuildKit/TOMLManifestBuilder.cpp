@@ -28,30 +28,36 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
     path = config.path_;
 
     if (!FS::exists(path)) {
-      NeBuild::Logger::info() << "error: file '" << path << "' does not exist"
-                              << std::endl;
+      NeBuild::Logger::info() << "error: file '" << path << "' does not exist" << std::endl;
       return false;
     }
   }
-    
+
   try {
     auto toml_file = toml::parse_file(path);
 
     try {
-      auto* description = toml_file["description"].as_string(); 
-      
+      auto* description = toml_file["description"].as_string();
+
+      if (!description) throw std::runtime_error({});
+
       NeBuild::Logger::info() << "package path: " << path << std::endl;
-      
-      if (description) NeBuild::Logger::info() << "description: " << description->get() << std::endl;
+
+      if (description)
+        NeBuild::Logger::info() << "description: " << description->get() << std::endl;
     } catch (...) {
-      // ...
     }
-    
-    std::string compiler = toml_file["compiler_path"].as_string()->get();
 
-    std::string command = compiler + " ";
+    auto* compiler_path_ptr = toml_file["compiler_path"].as_string();
+    if (!compiler_path_ptr) return false;
 
-    auto header_search_path = toml_file["compiler_headers_path"].as_array();
+    std::string compiler = compiler_path_ptr->get();
+    std::string command  = compiler + " ";
+
+    auto* header_search_path_ptr = toml_file["compiler_headers_path"].as_array();
+    if (!header_search_path_ptr) return false;
+
+    auto header_search_path = header_search_path_ptr;
 
     if (header_search_path) {
       for (auto& headers : *header_search_path) {
@@ -126,5 +132,5 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
 const std::string_view TOMLManifestBuilder::BuildSystem() {
   return "NeBuild (toml++::toml)";
 }
-  
+
 }  // namespace NeBuild

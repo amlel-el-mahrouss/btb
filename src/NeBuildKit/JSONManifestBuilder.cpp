@@ -28,8 +28,7 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
     path = config.path_;
 
     if (!FS::exists(path)) {
-      NeBuild::Logger::info() << "error: file '" << path << "' does not exist"
-                              << std::endl;
+      NeBuild::Logger::info() << "error: file '" << path << "' does not exist" << std::endl;
       return false;
     }
   }
@@ -38,8 +37,8 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
     std::ifstream json(path);
 
     if (!json.good()) {
-      NeBuild::Logger::info() << "error: file '" << path
-                              << "' is not a valid nlohmann::json" << std::endl;
+      NeBuild::Logger::info() << "error: file '" << path << "' is not a valid nlohmann::json"
+                              << std::endl;
       return false;
     }
 
@@ -52,7 +51,8 @@ bool JSONManifestBuilder::BuildTarget(BuildConfig& config) {
 
       if (auto res = description.get<std::string>(); !res.empty())
         NeBuild::Logger::info() << "description: " << res << std::endl;
-    } catch (...) {}
+    } catch (...) {
+    }
 
     std::string compiler = json_obj["compiler_path"].get<std::string>();
 
