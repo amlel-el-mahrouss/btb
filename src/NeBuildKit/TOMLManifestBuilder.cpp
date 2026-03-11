@@ -1,8 +1,7 @@
-// ============================================================= //
-// NeBuild
-// PURPOSE: TOML build support.
-// Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
-// ============================================================= //
+// SPDX-License-Identifier: BSD-3-Clause
+// Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
+// Licensed under the Apache License, Version 2.0 (see LICENSE file)
+// Official repository: https://github.com/ne-foss-org/build
 
 #include <NeBuildKit/TOMLManifestBuilder.h>
 #include <filesystem>
