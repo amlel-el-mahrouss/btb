@@ -1,6 +1,6 @@
 # The NeBuild System.
 
-[![License: GPL-3.0](https://img.shields.io/badge/license-BSD--3.0-blue.svg)](LICENSE)
+[![License: GPL-3.0](https://img.shields.io/badge/LICENSE-BSD--3.0-blue.svg)](LICENSE)
 
 Fast and easy to use build system for low-level projects.
 
