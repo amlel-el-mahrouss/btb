@@ -23,13 +23,13 @@ int main(int argc, char** argv) {
   for (size_t index{1}; index < argc; ++index) {
     std::string index_path = argv[index];
 
-    if (index_path == "-v" || index_path == "-version") {
+    if (index_path == "-v" || index_path == "--version") {
       NeBuild::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
       return EXIT_SUCCESS;
     } else if (index_path == "-dry-run" || index_path == "-n") {
       config.dry_run(true);
       continue;
-    } else if (index_path == "-h" || index_path == "-help") {
+    } else if (index_path == "-h" || index_path == "--help") {
       NeBuild::Logger::info() << "nebuild <options> <{Jbuild, Tbuild}/file.{json, toml}>\n";
       return EXIT_SUCCESS;
     }

@@ -14,20 +14,16 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/vendor)
 
-file(GLOB NEBUILD_CLI_SOURCES "${CMAKE_SOURCE_DIR}/src/CommandLine/*.cc")
-file(GLOB NEBUILD_SRC_SOURCES "${CMAKE_SOURCE_DIR}/src/NeBuildKit/*.cc")
+file(GLOB NEBUILD_CLI_SOURCES "${CMAKE_SOURCE_DIR}/src/CommandLine/*.cpp")
 set(NEBUILD_SOURCES ${NEBUILD_CLI_SOURCES} ${NEBUILD_SRC_SOURCES})
 
 add_executable(nebuild ${NEBUILD_SOURCES})
 
+target_link_libraries(nebuild NeBuildKit)
+
 target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/vendor)
 
 option(BUILD_WINDOWS "=> Produce a Windows executable name (nebuild.exe)" OFF)
-
-add_custom_target(build-nebuild
-  COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target nebuild
-  COMMENT "=> NeBuild built successfully for POSIX."
-)
 
 message(STATUS "=> Sources: ${NEBUILD_SOURCES}")
 message(STATUS "=> Include Dirs: ${CMAKE_SOURCE_DIR}/src;${CMAKE_SOURCE_DIR}/vendor")
