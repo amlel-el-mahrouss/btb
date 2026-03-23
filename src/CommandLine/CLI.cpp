@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
       return EXIT_SUCCESS;
     }
 
-    auto       index_cpy = index;
+    size_t     index_cpy{index};
     std::mutex mutex;
 
     jobs.push_back(std::thread{
