@@ -4,8 +4,8 @@
 // Official repository: https://github.com/ne-foss-org/build
 
 #include <NeBuildKit/TOMLManifestBuilder.h>
-#include <filesystem>
 #include <toml++/toml.hpp>
+#include <filesystem>
 
 namespace NeBuild {
 

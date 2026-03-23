@@ -10,9 +10,6 @@
 #include <thread>
 #include <vector>
 
-constexpr auto kNeBuildFileJson = "Jbuild.json";
-constexpr auto kNeBuildFileToml = "Tbuild.toml";
-
 int main(int argc, char** argv) {
   if (argc < 1) return EXIT_FAILURE;
 
@@ -44,7 +41,7 @@ int main(int argc, char** argv) {
 
           constexpr auto kJsonExtension = ".json";
 
-          if (index_path.ends_with(kJsonExtension) || index_path == kNeBuildFileJson) {
+          if (index_path.ends_with(kJsonExtension)) {
             builder = std::make_unique<NeBuild::JSONManifestBuilder>();
 
             /// report failed build to config.
@@ -56,7 +53,7 @@ int main(int argc, char** argv) {
             constexpr auto kTomlExtension = ".toml";
             builder                       = std::make_unique<NeBuild::TOMLManifestBuilder>();
 
-            if (!index_path.ends_with(kTomlExtension) && index_path != kNeBuildFileToml) {
+            if (!index_path.ends_with(kTomlExtension)) {
               NeBuild::Logger::info()
                   << "error: file '" << index_path << "' is not a manifest file!" << std::endl;
               config.has_failed(true);
