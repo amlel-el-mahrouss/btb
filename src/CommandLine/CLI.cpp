@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
       if (index_path == "-v" || index_path == "--version") {
         NeBuild::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
         return EXIT_SUCCESS;
-      } else if (index_path == "-dry-run" || index_path == "-n") {
+      } else if (index_path == "--dry-run" || index_path == "-n") {
         config.dry_run(true);
         continue;
       } else if (index_path == "-h" || index_path == "--help") {
@@ -52,6 +52,7 @@ int main(int argc, char** argv) {
               }
             } else {
               constexpr auto kTomlExtension = ".toml";
+
               builder                       = std::make_unique<NeBuild::TOMLManifestBuilder>();
 
               if (!index_path.ends_with(kTomlExtension)) {
@@ -62,11 +63,11 @@ int main(int argc, char** argv) {
               }
             }
 
-            std::string next_path;
+            std::string path;
 
-            if ((index_cpy + 1) < argc && argv[index_cpy + 1]) next_path = argv[index_cpy + 1];
+            if ((index_cpy + 1) < argc && argv[index_cpy + 1]) path = argv[index_cpy + 1];
 
-            if (next_path == "-build-system") {
+            if (path == "--build-system" || path == "-B") {
               NeBuild::Logger::info() << builder->BuildSystem() << std::endl;
               std::exit(EXIT_SUCCESS);
             }
