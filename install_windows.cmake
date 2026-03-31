@@ -1,6 +1,6 @@
 # // ============================================================= //
 # // NeBuild System.
-# // Copyright (C) 2025-2026, Amlal El Mahrouss and Ne.org Author, licensed under BSD-3 license.
+# // Copyright (C) 2025-2026, Amlal El Mahrouss and Ne.app Author, licensed under BSD-3 license.
 # // ============================================================= //
 
 # AMLALE: Update the CMake version, which requires a version that was too old.
