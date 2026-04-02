@@ -3,9 +3,12 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-foss-org/build
 
+#ifndef NEBUILD_WINDOWS
+
 #include <NeBuildKit/TOMLManifestBuilder.h>
 #include <toml++/toml.hpp>
 #include <filesystem>
+#include <optional>
 
 namespace NeBuild {
 
@@ -133,3 +136,5 @@ const std::string_view TOMLManifestBuilder::BuildSystem() {
 }
 
 }  // namespace NeBuild
+
+#endif

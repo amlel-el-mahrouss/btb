@@ -7,6 +7,8 @@
 
 #include <NeBuildKit/IManifestBuilder.h>
 
+#ifndef NEBUILD_WINDOWS
+
 /// @file TOMLManifestBuilder.h
 /// @brief TOML manifest builder header file.
 
@@ -32,3 +34,5 @@ class TOMLManifestBuilder NEBUILD_MANIFEST_BUILDER {
   const std::string_view BuildSystem() override;
 };
 }  // namespace NeBuild
+
+#endif

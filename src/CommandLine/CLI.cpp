@@ -4,7 +4,11 @@
 // Official repository: https://github.com/ne-foss-org/build
 
 #include <NeBuildKit/JSONManifestBuilder.h>
+
+#ifndef NEBUILD_WINDOWS
 #include <NeBuildKit/TOMLManifestBuilder.h>
+#endif
+
 #include <memory>
 #include <mutex>
 #include <thread>
@@ -51,6 +55,7 @@ int main(int argc, char** argv) {
                 return;
               }
             } else {
+#ifndef NEBUILD_WINDOWS
               constexpr auto kTomlExtension = ".toml";
 
               builder                       = std::make_unique<NeBuild::TOMLManifestBuilder>();
@@ -61,6 +66,14 @@ int main(int argc, char** argv) {
                 config.has_failed(true);
                 return;
               }
+#else
+              NeBuild::Logger::info() << "error: file '" << index_path
+                                      << "' is not a manifest file! (TOML support is not "
+                                         "available on Windows)"
+                                      << std::endl;
+              config.has_failed(true);
+              return;
+#endif
             }
 
             std::string path;
