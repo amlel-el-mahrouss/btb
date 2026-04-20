@@ -5,4 +5,4 @@
 
 .PHONY: nebuild.exe
 nebuild.exe: 
-	g++ -o $@ -DNEBUILD_INTERNAL_SDK -DNEBUILD_WINDOWS -std=gnu++23 -Iinclude -Ivendor $(wildcard src/*.cpp)
+	g++ -o $@ -DNEBUILD_INTERNAL_SDK -DNEBUILD_POSIX -std=gnu++23 -Iinclude -Ivendor $(wildcard src/*.cpp)
