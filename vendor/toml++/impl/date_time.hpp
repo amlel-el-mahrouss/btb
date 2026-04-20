@@ -287,6 +287,12 @@ TOML_NAMESPACE_START {
     }
   };
 
+#ifdef __linux__
+#define TOML_STD std::
+#else
+#define TOML_STD
+#endif
+
   TOML_ABI_NAMESPACE_BOOL(TOML_HAS_CUSTOM_OPTIONAL_TYPE, custopt, stdopt);
 
   /// \brief	A date-time.
@@ -300,7 +306,7 @@ TOML_NAMESPACE_START {
     /// \brief	The timezone offset component.
     ///
     /// \remarks The date_time is said to be 'local' if the offset is empty.
-    optional<toml::time_offset> offset;
+    TOML_STD optional<toml::time_offset> offset;
 
     /// \brief	Default constructor. Does not initialize the members.
     TOML_NODISCARD_CTOR
