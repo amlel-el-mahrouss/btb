@@ -48,12 +48,6 @@ int main(int argc, char** argv) {
 
             if (index_path.ends_with(kJsonExtension)) {
               builder = std::make_unique<NeBuild::JSONManifestBuilder>();
-
-              /// report failed build to config.
-              if (!builder) {
-                config.has_failed(true);
-                return;
-              }
             } else {
 #ifndef NEBUILD_WINDOWS
               constexpr auto kTomlExtension = ".toml";
