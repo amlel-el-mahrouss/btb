@@ -5,7 +5,7 @@
 
 #ifndef NEBUILD_WINDOWS
 
-#include <NeBuildKit/TOMLManifestBuilder.h>
+#include <BldKit/TOMLManifestBuilder.h>
 #include <toml++/toml.hpp>
 #include <filesystem>
 #include <optional>

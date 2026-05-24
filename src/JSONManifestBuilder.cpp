@@ -3,7 +3,7 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-foss-org/build
 
-#include <NeBuildKit/JSONManifestBuilder.h>
+#include <BldKit/JSONManifestBuilder.h>
 #include <json/json.h>
 #include <fstream>
 

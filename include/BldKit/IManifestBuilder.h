@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <NeBuildKit/Detail/Config.h>
+#include <BldKit/Detail/Config.h>
 #include <string_view>
 
 #define NEBUILD_MANIFEST_BUILDER \

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <NeBuildKit/IManifestBuilder.h>
+#include <BldKit/IManifestBuilder.h>
 
 /// @file JSONManifestBuilder.h
 /// @brief JSON manifest builder header file.

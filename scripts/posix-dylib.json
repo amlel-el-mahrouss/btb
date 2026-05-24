@@ -2,7 +2,7 @@
   "compiler_path": "clang++",
   "compiler_std": "c++20",
   "headers_path": ["include/", "vendor"],
-  "sources_path": ["src/NeBuildKit/*.cpp"],
+  "sources_path": ["src/BldKit/*.cpp"],
   "output_name": "libNeBuildKit.so",
   "compiler_flags": ["-fPIC", "-shared"],
   "cpp_macros": ["NEBUILD_POSIX", "NEBUILD_INTERNAL_SDK"],

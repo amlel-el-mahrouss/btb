@@ -3,4 +3,4 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-foss-org/build
 
-#include <NeBuildKit/IManifestBuilder.h>
+#include <BldKit/IManifestBuilder.h>

@@ -3,10 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
 // Official repository: https://github.com/ne-foss-org/build
 
-#include <NeBuildKit/JSONManifestBuilder.h>
+#include <BldKit/JSONManifestBuilder.h>
 
 #ifndef NEBUILD_WINDOWS
-#include <NeBuildKit/TOMLManifestBuilder.h>
+#include <BldKit/TOMLManifestBuilder.h>
 #endif
 
 #include <memory>

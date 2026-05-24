@@ -19,7 +19,7 @@ set(NEBUILD_SOURCES ${NEBUILD_CLI_SOURCES})
 
 add_executable(nebuild ${NEBUILD_SOURCES})
 
-target_link_libraries(nebuild NeBuildKit)
+target_link_libraries(nebuild BldKit)
 
 target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/vendor)
 

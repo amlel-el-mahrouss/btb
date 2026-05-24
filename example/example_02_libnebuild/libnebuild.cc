@@ -1,4 +1,4 @@
-#include <NeBuildKit/JSONManifestBuilder.h>
+#include <BldKit/JSONManifestBuilder.h>
 
 int main(int argc, char** argv) {
 #ifndef _WIN32
