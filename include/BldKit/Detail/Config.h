@@ -13,13 +13,13 @@
 #include <cassert>
 #include <iostream>
 
-#define NEBUILD_VERSION "v0.0.8-buildkit"
+#define NEBUILD_VERSION "v0.0.9-buildkit"
 
-#define NEBUILD_VERSION_BCD 0x0007
+#define NEBUILD_VERSION_BCD 0x0009
 
 #define NEBUILD_VERSION_MAJOR 0
 #define NEBUILD_VERSION_MINOR 0
-#define NEBUILD_VERSION_PATCH 7
+#define NEBUILD_VERSION_PATCH 9
 
 #define NEBUILD_EXPORT_C extern "C"
 
