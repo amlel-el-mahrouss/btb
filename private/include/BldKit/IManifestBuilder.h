@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss-org/build
+// Official repository: https://github.com/ne-app-eu/bld
 
 #pragma once
 
@@ -11,9 +11,10 @@
 #define NEBUILD_MANIFEST_BUILDER \
   final:                         \
   public                         \
-  ::NeBuild::IManifestBuilder
+  ::BldKit::IManifestBuilder
 
-namespace NeBuild {
+namespace BldKit {
+  
 /// =========================================================== ///
 /// @brief Builder interface class.
 /// @note This class is meant to be used as an interface.
@@ -39,4 +40,5 @@ class IManifestBuilder {
   /// =========================================================== ///
   virtual const std::string_view BuildSystem() { return "(null)"; }
 };
-}  // namespace NeBuild
+
+}  // namespace BldKit

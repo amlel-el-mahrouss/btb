@@ -1,4 +1,4 @@
 -std=c++20
--Iinclude/
--Ivendor
+-Iprivate/include/
+-Iprivate/vendor/
 -xc++

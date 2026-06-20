@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss-org/build
+// Official repository: https://github.com/ne-app-eu/bld
 
 #ifndef NEBUILD_WINDOWS
 
@@ -10,7 +10,7 @@
 #include <filesystem>
 #include <optional>
 
-namespace NeBuild {
+namespace BldKit {
 
 namespace FS = std::filesystem;
 
@@ -24,13 +24,13 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
   std::string path;
 
   if (config.path_.empty()) {
-    NeBuild::Logger::info() << "error: file path is empty" << std::endl;
+    BldKit::Logger::info() << "error: file path is empty" << std::endl;
     return false;
   } else {
     path = config.path_;
 
     if (!FS::exists(path)) {
-      NeBuild::Logger::info() << "error: file '" << path << "' does not exist" << std::endl;
+      BldKit::Logger::info() << "error: file '" << path << "' does not exist" << std::endl;
       return false;
     }
   }
@@ -43,10 +43,10 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
 
       if (!description) throw std::runtime_error({});
 
-      NeBuild::Logger::info() << "package path: " << path << std::endl;
+      BldKit::Logger::info() << "package path: " << path << std::endl;
 
       if (description)
-        NeBuild::Logger::info() << "description: " << description->get() << std::endl;
+        BldKit::Logger::info() << "description: " << description->get() << std::endl;
     } catch (...) {
     }
 
@@ -109,18 +109,18 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
 
     auto target = toml_file["output_name"].as_string()->get();
 
-    NeBuild::Logger::info() << "output: " << target << "\n";
+    BldKit::Logger::info() << "output: " << target << "\n";
 
     auto ret_exec = std::system(command.c_str());
 
     if (ret_exec > 0) {
-      NeBuild::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
+      BldKit::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
                               << std::endl;
       config.has_failed_ = true;
       return false;
     }
   } catch (const std::exception& err) {
-    NeBuild::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
+    BldKit::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
     config.has_failed_ = true;
     return false;
   }
@@ -135,6 +135,6 @@ const std::string_view TOMLManifestBuilder::BuildSystem() {
   return "NeBuild (toml++::toml)";
 }
 
-}  // namespace NeBuild
+}  // namespace BldKit
 
 #endif

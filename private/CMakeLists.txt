@@ -6,7 +6,7 @@
 # AMLALE: Update the CMake version, which requires a version that was too old.
 cmake_minimum_required(VERSION 3.30)
 
-project(nebuild VERSION 0.1 LANGUAGES CXX)
+project(nebld VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -17,13 +17,13 @@ include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/vendor)
 file(GLOB NEBUILD_CLI_SOURCES "${CMAKE_SOURCE_DIR}/src/CommandLine/*.cpp")
 set(NEBUILD_SOURCES ${NEBUILD_CLI_SOURCES})
 
-add_executable(nebuild ${NEBUILD_SOURCES})
+add_executable(nebld ${NEBUILD_SOURCES})
 
-target_link_libraries(nebuild BldKit)
+target_link_libraries(nebld BldKit)
 
-target_include_directories(nebuild PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/vendor)
+target_include_directories(nebld PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/vendor)
 
-option(BUILD_WINDOWS "=> Produce a Windows executable name (nebuild.exe)" OFF)
+option(BUILD_WINDOWS "=> Produce a Windows executable name (nebld.exe)" OFF)
 
 message(STATUS "=> Sources: ${NEBUILD_SOURCES}")
 message(STATUS "=> Include Dirs: ${CMAKE_SOURCE_DIR}/src;${CMAKE_SOURCE_DIR}/vendor")

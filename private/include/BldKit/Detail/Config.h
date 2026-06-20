@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss-org/build
+// Official repository: https://github.com/ne-app-eu/bld
 
 #pragma once
 
@@ -13,9 +13,9 @@
 #include <cassert>
 #include <iostream>
 
-#define NEBUILD_VERSION "v0.0.9-buildkit"
+#define NEBUILD_VERSION "v1.0.0-buildkit"
 
-#define NEBUILD_VERSION_BCD 0x0009
+#define NEBUILD_VERSION_BCD 0x1000
 
 #define NEBUILD_VERSION_MAJOR 0
 #define NEBUILD_VERSION_MINOR 0
@@ -32,7 +32,8 @@
 #define b_internal public
 #endif
 
-namespace NeBuild {
+namespace BldKit {
+  
 struct BuildConfig final {
   b_internal : bool has_failed_{false};
   bool              dry_run_{false};
@@ -53,17 +54,18 @@ struct BuildConfig final {
   BuildConfig()  = default;
   ~BuildConfig() = default;
 };
-}  // namespace NeBuild
+
+}  // namespace BldKit
 
 /// \brief Logger namespace.
-namespace NeBuild::Logger {
+namespace BldKit::Logger {
 
 /// @brief replacement for std::cout for NeBuild logging.
 /// @todo change this to spdlog?
 inline std::ostream& info() noexcept {
   auto& out = std::cout;
-  out << rang::fg::red << "nebuild: " << rang::style::reset;
+  out << rang::fg::red << "nebld: " << rang::style::reset;
   return out;
 }
 
-}  // namespace NeBuild::Logger
+}  // namespace BldKit::Logger

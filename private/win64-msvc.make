@@ -4,10 +4,10 @@
 # // ============================================================= //
 
 .PHONY: all
-all: nebuild.exe
+all: nebld.exe
 	@echo "=> Successfully built NeBuild for Windows."
 
 CL=cl.exe
 
-nebuild.exe: src/CommandLine/CLI.cpp src/BldKit/*.cpp
+nebld.exe: src/CommandLine/CLI.cpp src/BldKit/*.cpp
 	@$(CL) /onebuild.exe /DNEBUILD_INTERNAL_SDK /DNEBUILD_WINDOWS /std:c++20 /EHsc /I"include" /I"vendor" $(**:.cpp=.cpp)

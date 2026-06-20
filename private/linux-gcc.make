@@ -3,6 +3,6 @@
 # // Copyright (C) 2024-2026, Amlal El Mahrouss and NeKernel Authors, licensed under BSD-3 license.
 # // ============================================================= //
 
-.PHONY: nebuild.exe
-nebuild.exe: 
+.PHONY: nebld.exe
+nebld.exe: 
 	g++ -o $@ -DNEBUILD_INTERNAL_SDK -DNEBUILD_POSIX -std=c++23 -Iinclude -Ivendor $(wildcard src/*.cpp)

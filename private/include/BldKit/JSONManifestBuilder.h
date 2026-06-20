@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss-org/build
+// Official repository: https://github.com/ne-app-eu/bld
 
 #pragma once
 
@@ -10,7 +10,8 @@
 /// @file JSONManifestBuilder.h
 /// @brief JSON manifest builder header file.
 
-namespace NeBuild {
+namespace BldKit {
+  
 /// @brief JSON builder
 class JSONManifestBuilder NEBUILD_MANIFEST_BUILDER {
  public:
@@ -31,4 +32,5 @@ class JSONManifestBuilder NEBUILD_MANIFEST_BUILDER {
   /// =========================================================== ///
   const std::string_view BuildSystem() override;
 };
-}  // namespace NeBuild
+
+}  // namespace BldKit

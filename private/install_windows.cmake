@@ -8,10 +8,10 @@ cmake_minimum_required(VERSION 3.30)
 
 # Append .exe when it's a Windows build (The Windows loader requires it)
 if(DEFINED BUILD_WINDOWS)
-  set_target_properties(nebuild PROPERTIES OUTPUT_NAME "nebuild.exe")
+  set_target_properties(nebld PROPERTIES OUTPUT_NAME "nebld.exe")
 
-    add_custom_target(build-nebuild-windows
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target nebuild
+    add_custom_target(build-nebld-windows
+    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target nebld
     COMMENT "=> NeBuild successfully built for Windows (configure with -DBUILD_WINDOWS=ON)."
     )
 endif()

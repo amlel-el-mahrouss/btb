@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss-org/build
+// Official repository: https://github.com/ne-app-eu/bld
 
 #include <BldKit/JSONManifestBuilder.h>
 
@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
   if (argc < 1) return EXIT_FAILURE;
 
   try {
-    NeBuild::BuildConfig config;
+    BldKit::BuildConfig config;
 
     std::vector<std::thread> jobs;
 
@@ -26,13 +26,13 @@ int main(int argc, char** argv) {
       std::string index_path = argv[index];
 
       if (index_path == "-v" || index_path == "--version") {
-        NeBuild::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
+        BldKit::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
         return EXIT_SUCCESS;
       } else if (index_path == "--dry-run" || index_path == "-n") {
         config.dry_run(true);
         continue;
       } else if (index_path == "-h" || index_path == "--help") {
-        NeBuild::Logger::info() << "nebuild <options> <{Jbuild, Tbuild}/file.{json, toml}>\n";
+        BldKit::Logger::info() << "nebld <options> <{Jbuild, Tbuild}/file.{json, toml}>\n";
         return EXIT_SUCCESS;
       }
 
@@ -42,26 +42,26 @@ int main(int argc, char** argv) {
       jobs.push_back(std::thread{
           [&mutex, &index, &index_cpy, &argc, &argv, &config](std::string index_path) -> void {
             std::unique_lock<decltype(mutex)>          lk{mutex};
-            std::unique_ptr<NeBuild::IManifestBuilder> builder;
+            std::unique_ptr<BldKit::IManifestBuilder> builder;
 
             constexpr auto kJsonExtension = ".json";
 
             if (index_path.ends_with(kJsonExtension)) {
-              builder = std::make_unique<NeBuild::JSONManifestBuilder>();
+              builder = std::make_unique<BldKit::JSONManifestBuilder>();
             } else {
 #ifndef NEBUILD_WINDOWS
               constexpr auto kTomlExtension = ".toml";
 
-              builder                       = std::make_unique<NeBuild::TOMLManifestBuilder>();
+              builder                       = std::make_unique<BldKit::TOMLManifestBuilder>();
 
               if (!index_path.ends_with(kTomlExtension)) {
-                NeBuild::Logger::info()
+                BldKit::Logger::info()
                     << "error: file '" << index_path << "' is not a manifest file!" << std::endl;
                 config.has_failed(true);
                 return;
               }
 #else
-              NeBuild::Logger::info() << "error: file '" << index_path
+              BldKit::Logger::info() << "error: file '" << index_path
                                       << "' is not a manifest file! (TOML support is not "
                                          "available on Windows)"
                                       << std::endl;
@@ -75,11 +75,11 @@ int main(int argc, char** argv) {
             if ((index_cpy + 1) < argc && argv[index_cpy + 1]) path = argv[index_cpy + 1];
 
             if (path == "--build-system" || path == "-B") {
-              NeBuild::Logger::info() << builder->BuildSystem() << std::endl;
+              BldKit::Logger::info() << builder->BuildSystem() << std::endl;
               std::exit(EXIT_SUCCESS);
             }
 
-            NeBuild::Logger::info() << "building manifest: " << index_path << std::endl;
+            BldKit::Logger::info() << "building manifest: " << index_path << std::endl;
 
             config.path(index_path);
 

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // Copyright 2024-2026, Amlal El Mahrouss (amlal@nekernel.org)
 // Licensed under the Apache License, Version 2.0 (see LICENSE file)
-// Official repository: https://github.com/ne-foss-org/build
+// Official repository: https://github.com/ne-app-eu/bld
 
 #pragma once
 
@@ -12,7 +12,8 @@
 /// @file TOMLManifestBuilder.h
 /// @brief TOML manifest builder header file.
 
-namespace NeBuild {
+namespace BldKit {
+
 /// @brief TOML builder
 class TOMLManifestBuilder NEBUILD_MANIFEST_BUILDER {
  public:
@@ -33,6 +34,7 @@ class TOMLManifestBuilder NEBUILD_MANIFEST_BUILDER {
   /// =========================================================== ///
   const std::string_view BuildSystem() override;
 };
-}  // namespace NeBuild
+
+}  // namespace BldKit
 
 #endif
