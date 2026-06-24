@@ -6,6 +6,7 @@
 #ifndef NEBUILD_WINDOWS
 
 #include <BldKit/TOMLManifestBuilder.h>
+#include <optional>
 #include <toml++/toml.hpp>
 #include <filesystem>
 #include <optional>

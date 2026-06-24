@@ -5,4 +5,4 @@
 
 .PHONY: nebld.exe
 nebld.exe: 
-	g++ -o $@ -DNEBUILD_INTERNAL_SDK -DNEBUILD_POSIX -std=c++23 -Iinclude -Ivendor $(wildcard src/*.cpp)
+	g++ -std=c++20 -o $@ -DNEBUILD_INTERNAL_SDK -DNEBUILD_POSIX -std=c++23 -Iinclude -Ivendor $(wildcard src/*.cpp)
