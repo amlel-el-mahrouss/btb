@@ -25,13 +25,13 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
   std::string path;
 
   if (config.path_.empty()) {
-    BldKit::Logger::info() << "error: file path is empty" << std::endl;
+    BldKit::Logger::info() << "error: file path is empty." << std::endl;
     return false;
   } else {
     path = config.path_;
 
     if (!FS::exists(path)) {
-      BldKit::Logger::info() << "error: file '" << path << "' does not exist" << std::endl;
+      BldKit::Logger::info() << "error: file '" << path << "' does not exist." << std::endl;
       return false;
     }
   }
@@ -115,13 +115,13 @@ bool TOMLManifestBuilder::BuildTarget(BuildConfig& config) {
     auto ret_exec = std::system(command.c_str());
 
     if (ret_exec > 0) {
-      BldKit::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << ""
+      BldKit::Logger::info() << "error: exit with message: " << std::strerror(ret_exec) << "."
                               << std::endl;
       config.has_failed_ = true;
       return false;
     }
   } catch (const std::exception& err) {
-    BldKit::Logger::info() << "error: exit with message: " << err.what() << "" << std::endl;
+    BldKit::Logger::info() << "error: exit with message: " << err.what() << "." << std::endl;
     config.has_failed_ = true;
     return false;
   }
