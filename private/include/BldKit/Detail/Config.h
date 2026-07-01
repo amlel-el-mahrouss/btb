@@ -53,6 +53,10 @@ struct BuildConfig final {
 
   BuildConfig()  = default;
   ~BuildConfig() = default;
+
+  BuildConfig& operator=(const BuildConfig&) = default;
+  BuildConfig(const BuildConfig&)            = default;
+
 };
 
 }  // namespace BldKit

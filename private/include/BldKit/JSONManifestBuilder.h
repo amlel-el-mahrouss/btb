@@ -12,7 +12,9 @@
 
 namespace BldKit {
   
+/// =========================================================== ///
 /// @brief JSON builder
+/// =========================================================== ///
 class JSONManifestBuilder NEBUILD_MANIFEST_BUILDER {
  public:
   JSONManifestBuilder()           = default;

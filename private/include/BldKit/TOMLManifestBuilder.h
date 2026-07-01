@@ -14,7 +14,9 @@
 
 namespace BldKit {
 
+/// =========================================================== ///
 /// @brief TOML builder
+/// =========================================================== ///
 class TOMLManifestBuilder NEBUILD_MANIFEST_BUILDER {
  public:
   TOMLManifestBuilder()           = default;
