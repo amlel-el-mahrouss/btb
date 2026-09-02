@@ -38,6 +38,8 @@ struct BuildCommandLine {
       config.dry_run(true);
       return EXIT_SUCCESS;
     } 
+
+    return EXIT_FAILURE;
   }
 };
 
