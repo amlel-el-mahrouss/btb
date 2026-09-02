@@ -14,28 +14,60 @@
 #include <thread>
 #include <vector>
 
+struct BuildCommandLine {
+  std::vector<std::string> manifest_paths;
+  std::size_t              manifest_count{0};
+
+  int operator()(const std::string& index_path, BldKit::BuildConfig& config) {
+    if (index_path == "-v" || index_path == "--version") {
+      BldKit::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
+      return EXIT_SUCCESS;
+    } else if (index_path == "--dry-run" || index_path == "-n") {
+      config.dry_run(true);
+      return EXIT_SUCCESS;
+    } else if (index_path == "-h" || index_path == "--help") {
+      BldKit::Logger::info() << "nebld <options> <{Jbuild, Tbuild}/file.{json, toml}>\n";
+      return EXIT_SUCCESS;
+    } else if (index_path == "/h" || index_path == "/help") {
+      BldKit::Logger::info() << "nebld <options> <{Jbuild, Tbuild}/file.{json, toml}>\n";
+      return EXIT_SUCCESS;
+    } else if (index_path == "/v" || index_path == "/version") {
+      BldKit::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
+      return EXIT_SUCCESS;
+    } else if (index_path == "/dry-run" || index_path == "/n") {
+      config.dry_run(true);
+      return EXIT_SUCCESS;
+    } 
+  }
+};
+
 int main(int argc, char** argv) {
   if (argc < 1) return EXIT_FAILURE;
 
   try {
     BldKit::BuildConfig config;
+    BuildCommandLine    cmdline;
 
     std::vector<std::thread> jobs;
 
     for (size_t index{1}; index < argc; ++index) {
       std::string index_path = argv[index];
 
-      if (index_path == "-v" || index_path == "--version") {
-        BldKit::Logger::info() << "NeBuild (" << NEBUILD_VERSION << ")\n";
-        return EXIT_SUCCESS;
-      } else if (index_path == "--dry-run" || index_path == "-n") {
-        config.dry_run(true);
-        continue;
-      } else if (index_path == "-h" || index_path == "--help") {
-        BldKit::Logger::info() << "nebld <options> <{Jbuild, Tbuild}/file.{json, toml}>\n";
-        return EXIT_SUCCESS;
-      }
+      /// Handle command line arguments for version, help, and dry-run options.
+      if (cmdline(index_path, config) == EXIT_SUCCESS) continue;
 
+      cmdline.manifest_paths.push_back(index_path);
+      cmdline.manifest_count++;
+    }
+
+    if (cmdline.manifest_count == 0) {
+      BldKit::Logger::info() << "error: no manifest file provided!" << std::endl;
+      return EXIT_FAILURE;
+    }
+
+    size_t index{0};
+
+    for (const auto& index_path : cmdline.manifest_paths) {
       size_t     index_cpy{index};
       std::mutex mutex;
 
@@ -94,7 +126,7 @@ int main(int argc, char** argv) {
 
     // check for whether config is valid. if so return failure, or success.
     return !config ? EXIT_FAILURE : EXIT_SUCCESS;
-  } catch (...) {
-    
+  } catch (const std::runtime_error& err) {
+    BldKit::Logger::info() << "error: " << err.what() << std::endl;
   }
 }
