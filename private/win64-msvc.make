@@ -9,5 +9,5 @@ all: nebld.exe
 
 CL=cl.exe
 
-nebld.exe: src/CommandLine/CLI.cpp src/BldKit/*.cpp
-	@$(CL) /onebuild.exe /DNEBUILD_INTERNAL_SDK /DNEBUILD_WINDOWS /std:c++20 /EHsc /I"include" /I"vendor" $(**:.cpp=.cpp)
+nebld.exe: src/*.cpp
+	@$(CL) /onebld.exe /DNEBUILD_INTERNAL_SDK /DNEBUILD_WINDOWS /std:c++20 /EHsc /I"include" /I"vendor" $(**:.cpp=.cpp)
